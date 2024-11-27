@@ -1,29 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { postUsuario } from "../helpers/apiUsuarios";
 
 const RegisterModal = ({ id = "registerModal", defaultRole = "USER_ROLE" }) => {
+  const [errorMessage, setErrorMessage] = useState(null);
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
   const registerUser = async (data) => {
     try {
-      const userData = {
-        ...data,
-        role: defaultRole,
-        
-    };
-    console.log(userData);
+      // Verificar que las contraseñas coincidan
+      if (data.password !== data.confirmPassword) {
+        setErrorMessage("Las contraseñas no coinciden.");
+        return;
+      }
+      const { confirmPassword, ...userData } = data; // Excluir confirmPassword
+      userData.rol = defaultRole; // Asegurar que role esté incluido
 
       const response = await postUsuario(userData); // Llamamos a la función para registrar el usuario
-      console.log("Usuario registrado exitosamente:", response);
-      alert("Usuario registrado exitosamente");
+      const modal = document.getElementById(id);
+      if (response.status === 201) {
+        alert("Usuario registrado exitosamente.");
+        setErrorMessage(null); // Limpiar mensaje de error si es exitoso
+        reset(); // Limpiar el formulario
+        if (bootstrapModal) {
+          bootstrapModal.hide(); // Cerrar el modal
+        }
+      } // Cerrar modal después del registro exitoso
     } catch (error) {
       console.error("Error al registrar usuario:", error.message);
-      alert("Ocurrió un error al registrar el usuario.");
+      setErrorMessage(
+        error.message || "Ocurrió un error inesperado al registrar el usuario."
+      ); // Mostrar el error en el modal
     }
   };
 
@@ -34,6 +46,8 @@ const RegisterModal = ({ id = "registerModal", defaultRole = "USER_ROLE" }) => {
       tabIndex="-1"
       aria-labelledby={`${id}Label`}
       aria-hidden="true"
+      data-bs-backdrop="static" // Evita el cierre al hacer clic fuera del modal
+      data-bs-keyboard="false" // Evita el cierre con la tecla Escape
     >
       <div className="modal-dialog">
         <div className="modal-content">
@@ -45,7 +59,9 @@ const RegisterModal = ({ id = "registerModal", defaultRole = "USER_ROLE" }) => {
               type="button"
               className="btn-close"
               data-bs-dismiss="modal"
-              aria-label="Close"
+              aria-hidden="true"
+              data-bs-backdrop="static"
+              data-bs-keyboard="false"
             ></button>
           </div>
           <div className="modal-body">
@@ -108,11 +124,13 @@ const RegisterModal = ({ id = "registerModal", defaultRole = "USER_ROLE" }) => {
                   </p>
                 )}
               </div>
-              <button
-                type="submit"
-                className="btn btn-primary"
-                data-bs-dismiss="modal"
-              >
+              {/* Mensaje de error global, si lo hay */}
+              {errorMessage && (
+                <div className="alert alert-danger" role="alert">
+                  {errorMessage}
+                </div>
+              )}
+              <button type="submit" className="btn btn-primary">
                 Registrarse
               </button>
             </form>

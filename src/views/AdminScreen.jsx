@@ -32,7 +32,7 @@ export const AdminScreen = () => {
             Registrar Nuevo moderador
           </button>
 
-          
+          {/* Modal para registrar usuarios como ADMIN_ROLE */}
           <RegisterModal id="modRegisterModal" defaultRole="MOD_ROLE" />
         </div>
       ) : (
