@@ -23,6 +23,7 @@ const RegisterModal = ({ id = "registerModal", defaultRole = "USER_ROLE" }) => {
 
       const response = await postUsuario(userData); // Llamamos a la función para registrar el usuario
       const modal = document.getElementById(id);
+      const bootstrapModal =  bootstrap.Modal.getInstance(modal);
       if (response.status === 201) {
         alert("Usuario registrado exitosamente.");
         setErrorMessage(null); // Limpiar mensaje de error si es exitoso
