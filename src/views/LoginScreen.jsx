@@ -5,7 +5,7 @@ import { auth } from "../helpers/fetchApi";
 import RegisterModal from "../components/ModalRegisterApp";
 import "../css/LoginScreen.css";
 const LoginScreen = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Instancia de useNavigate
   const [message, setMessage] = useState(null);
   const {
     register: loginRegister,
@@ -76,7 +76,7 @@ const LoginScreen = () => {
             {message.msg}
           </div>
         )}
-        <button
+         <button
           type="button"
           className="btn btn-link mt-3"
           data-bs-toggle="modal"
@@ -85,8 +85,8 @@ const LoginScreen = () => {
           ¿No tienes una cuenta? Regístrate aquí
         </button>
       </div>
-
-      <RegisterModal id="userRegisterModal" defaultRole="USER_ROLE" />
+       {/* Componente RegisterModal */}
+       <RegisterModal id="userRegisterModal" defaultRole="USER_ROLE" />
     </div>
   );
 };
