@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { postUsuario } from "../helpers/apiUsuarios";
 
 const RegisterModal = ({ id = "registerModal", defaultRole = "USER_ROLE" }) => {
   const [errorMessage, setErrorMessage] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
   const {
     register,
     handleSubmit,
@@ -22,24 +23,65 @@ const RegisterModal = ({ id = "registerModal", defaultRole = "USER_ROLE" }) => {
       userData.rol = defaultRole; // Asegurar que role esté incluido
 
       const response = await postUsuario(userData); // Llamamos a la función para registrar el usuario
-      const modal = document.getElementById(id);
-      const bootstrapModal =  bootstrap.Modal.getInstance(modal);
+
       if (response.status === 201) {
-        alert("Usuario registrado exitosamente.");
+        setSuccessMessage(
+          response.data.msg || "Usuario registrado exitosamente."
+        );
         setErrorMessage(null); // Limpiar mensaje de error si es exitoso
         reset(); // Limpiar el formulario
-        if (bootstrapModal) {
-          bootstrapModal.hide(); // Cerrar el modal
-        }
-      } // Cerrar modal después del registro exitoso
+        // Mostrar el mensaje y cerrar el modal después de 2 segundos
+        setTimeout(() => {
+          closeModal();
+        }, 2000);
+      }
     } catch (error) {
       console.error("Error al registrar usuario:", error.message);
       setErrorMessage(
         error.message || "Ocurrió un error inesperado al registrar el usuario."
       ); // Mostrar el error en el modal
+      setSuccessMessage(null); // Limpiar mensaje de éxito si ocurre un error
     }
   };
 
+  const closeModal = () => {
+    const modalElement = document.getElementById(id);
+    if (modalElement) {
+      // Remover la clase `show` y agregar `aria-hidden`
+      modalElement.classList.remove("show");
+      modalElement.style.display = "none";
+      modalElement.setAttribute("aria-hidden", "true");
+      // Eliminar backdrop si existe
+      const backdrop = document.querySelector(".modal-backdrop");
+      if (backdrop) {
+        backdrop.remove();
+      }
+      // Restaurar el atributo `aria-modal` y el `role` si es necesario
+      modalElement.removeAttribute("aria-modal");
+      document.body.classList.remove("modal-open");
+      document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
+
+      setSuccessMessage(null);
+    }
+  };
+
+  useEffect(() => {
+    // Limpiar el mensaje de éxito cuando el modal se cierra
+    const modalElement = document.getElementById(id);
+
+    if (modalElement) {
+      const handleModalHidden = () => {
+        setSuccessMessage(null);
+      };
+
+      modalElement.addEventListener("hidden.bs.modal", handleModalHidden);
+
+      return () => {
+        modalElement.removeEventListener("hidden.bs.modal", handleModalHidden);
+      };
+    }
+  }, [id]);
   return (
     <div
       className="modal fade"
@@ -47,8 +89,8 @@ const RegisterModal = ({ id = "registerModal", defaultRole = "USER_ROLE" }) => {
       tabIndex="-1"
       aria-labelledby={`${id}Label`}
       aria-hidden="true"
-      data-bs-backdrop="static" // Evita el cierre al hacer clic fuera del modal
-      data-bs-keyboard="false" // Evita el cierre con la tecla Escape
+      // data-bs-backdrop="static"
+      // data-bs-keyboard="false"
     >
       <div className="modal-dialog">
         <div className="modal-content">
@@ -129,6 +171,12 @@ const RegisterModal = ({ id = "registerModal", defaultRole = "USER_ROLE" }) => {
               {errorMessage && (
                 <div className="alert alert-danger" role="alert">
                   {errorMessage}
+                </div>
+              )}
+              {/* Mensaje de éxito global, si lo hay */}
+              {successMessage && (
+                <div className="alert alert-success" role="alert">
+                  {successMessage}
                 </div>
               )}
               <button type="submit" className="btn btn-primary">
