@@ -30,7 +30,8 @@ const NavBarApp = () => {
   const handleLogout = () => {
     localStorage.removeItem("uid"); 
     localStorage.removeItem("token"); 
-    navigate("/"); 
+    setUserRole(null);
+    navigate("/");
   };
 
   return (
@@ -83,7 +84,8 @@ const NavBarApp = () => {
                 Pedidos
               </NavLink>
             </li>
-            {userRole === "ADMIN_ROLE" && (
+            
+            {(userRole === "ADMIN_ROLE" || userRole === "MOD_ROLE" || userRole === "VENTAS_ROLE") && (
               <li className="nav-item">
                 <NavLink
                   className={({ isActive }) =>
