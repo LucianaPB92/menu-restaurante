@@ -1,8 +1,8 @@
 import React from 'react'
 import { Route, Routes } from "react-router-dom";
-import ProtectedRoutes from "./ProtectedRoutes";
+import ProtectedRoutes from './ProtectedRoutes';
 import HomeScreen from '../views/HomeScreen'
-import NavBarApp from '../components/NavBarApp';
+import NavBarApp from '../components/NavbarApp';
 import AdminScreen from '../views/AdminScreen';
 const RoutesTwo = () => {
   return (
