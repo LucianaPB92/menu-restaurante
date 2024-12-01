@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { obtenerCategorias } from "../helpers/apiCategorias";
 import { obtenerProductos } from "../helpers/apiProductos";
