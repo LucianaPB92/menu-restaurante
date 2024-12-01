@@ -13,7 +13,7 @@ export const AdminScreen = () => {
   const [usuarios, setUsuarios] = useState([]);
   const [paginaActual, setPaginaActual] = useState(1);
   const [terminoBusqueda, setTerminoBusqueda] = useState("");
-  const usuariosPorPagina = 5; // Cantidad de usuarios por página
+  const usuariosPorPagina = 5;
   const uid = JSON.parse(localStorage.getItem("uid")) || null;
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -23,7 +23,7 @@ export const AdminScreen = () => {
   useEffect(() => {
     validar();
     if (user?.rol === "ADMIN_ROLE") {
-      obtenerUsuarios(); // Obtener los usuarios si el rol es admin
+      obtenerUsuarios(); 
     }
   }, [uid, user?.rol]);
 
@@ -36,17 +36,19 @@ export const AdminScreen = () => {
 
   const obtenerUsuarios = () => {
     getUsuarios().then((response) => {
-      setUsuarios(response.usuarios); // Asumimos que la respuesta tiene un campo 'usuarios'
+      setUsuarios(response.usuarios); 
     });
   };
 
-  const handleInactivarUsuario = async (uid) => {
+
+  const handleInactivarUsuario = async (id) => {
     const confirmar = window.confirm(
       "¿Estás seguro de que deseas inactivar este usuario?"
     );
     if (confirmar) {
       try {
-        const usuarioActualizado = await inactivarUsuario(uid);
+
+        const usuarioActualizado = await inactivarUsuario(id);
 
         setUsuarios((prevUsuarios) =>
           prevUsuarios.map((usuario) =>
@@ -62,16 +64,16 @@ export const AdminScreen = () => {
       }
     }
   };
-  // Filtrar usuarios según búsqueda y rol
+  
   const usuariosFiltrados = usuarios.filter((usuario) => {
     const coincideTermino =
       usuario.email.toLowerCase().includes(terminoBusqueda.toLowerCase()) ||
-      usuario.rol.toLowerCase().includes(terminoBusqueda.toLowerCase()); // Filtrar por rol también
+      usuario.rol.toLowerCase().includes(terminoBusqueda.toLowerCase()); 
 
     return coincideTermino;
   });
 
-  // Paginación basada en usuarios filtrados
+  
   const indiceUltimoUsuario = paginaActual * usuariosPorPagina;
   const indicePrimerUsuario = indiceUltimoUsuario - usuariosPorPagina;
   const usuariosAMostrar = usuariosFiltrados.slice(
@@ -107,10 +109,10 @@ export const AdminScreen = () => {
             Registrar Nuevo moderador
           </button>
 
-          {/* Modal para registrar usuarios como ADMIN_ROLE */}
+          
           <RegisterModal id="modRegisterModal" defaultRole="MOD_ROLE" />
 
-          {/* Buscador y filtro */}
+          
           <div className="row mb-3">
             <div className="col-12 col-md-6 mb-3 mb-md-0">
               <div className="d-flex justify-content-end">
@@ -125,7 +127,7 @@ export const AdminScreen = () => {
               </div>
             </div>
           </div>
-          {/* Tabla para mostrar los usuarios */}
+          
           <table className="table mt-4">
             <thead>
               <tr>
@@ -147,7 +149,8 @@ export const AdminScreen = () => {
                           usuario.estado ? "btn-danger" : "btn-secondary"
                         }`}
                         disabled={user?.rol !== "ADMIN_ROLE" || !usuario.estado}
-                        onClick={() => handleInactivarUsuario(usuario.uid)}
+
+                        onClick={() => handleInactivarUsuario(usuario._id)}
                       >
                         {usuario.estado ? "Inactivar" : "Reactivar"}
                       </button>
@@ -190,4 +193,6 @@ export const AdminScreen = () => {
   );
 };
 
+
 export default AdminScreen;
+
