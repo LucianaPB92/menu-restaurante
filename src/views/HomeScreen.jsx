@@ -13,12 +13,12 @@ const HomeScreen = () => {
         const categoriasData = await obtenerCategorias();
         setCategorias(categoriasData);
 
-        const { productos, total } = await obtenerProductos(0, 27);
+        const { productos, total } = await obtenerProductos({ estado: true });
         setProductos(productos);
         console.log(`Total productos: ${total}`);
       } catch (error) {
         console.error("Error al obtener los datos:", error);
-        setProductos([]); // Evita que el estado quede sin inicializar
+        setProductos([]);
       }
     };
 
@@ -27,7 +27,6 @@ const HomeScreen = () => {
 
   return (
     <div>
-      {/* Imagen principal como presentación */}
       <div className="home-container d-flex flex-column justify-content-center align-items-center text-center">
         <h1>Bienvenidos a nuestra tienda</h1>
         <img
