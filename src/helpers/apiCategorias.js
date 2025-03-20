@@ -1,12 +1,11 @@
-const URL_CATEGORIAS =
-  "https://proyecto-menu-de-restaurante.onrender.com/api/categorias";
+const URL_CATEGORIAS = "https://webserver-mfl9.onrender.com/api/categorias";
+
 export const obtenerCategorias = async () => {
   try {
     const response = await fetch(URL_CATEGORIAS, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "x-token": JSON.parse(localStorage.getItem("token")),
       },
     });
     if (!response.ok) {
