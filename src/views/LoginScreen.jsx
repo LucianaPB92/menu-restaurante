@@ -9,11 +9,16 @@ const LoginScreen = () => {
   const navigate = useNavigate();
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const {
     register: loginRegister,
     handleSubmit: handleLoginSubmit,
     formState: { errors: loginErrors },
   } = useForm();
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const logIn = (data, e) => {
     e.preventDefault();
@@ -72,13 +77,24 @@ const LoginScreen = () => {
               <label htmlFor="password" className="form-label">
                 Contraseña
               </label>
-              <input
-                type="password"
-                className="form-control"
-                id="password"
-                placeholder="Ingresa tu contraseña"
-                {...loginRegister("pass", { required: true })}
-              />
+              <div className="input-group">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  className="form-control"
+                  id="password"
+                  placeholder="Ingresa tu contraseña"
+                  {...loginRegister("pass", { required: true })}
+                />
+                <button
+                  type="button"
+                  className="btn btn-outline-secondary bg-light"
+                  onClick={togglePasswordVisibility}
+                >
+                  <i
+                    className={showPassword ? "bi bi-eye" : "bi bi-eye-slash"}
+                  ></i>
+                </button>
+              </div>
               {loginErrors.pass?.type === "required" && (
                 <p className="text-danger">Contraseña obligatoria</p>
               )}
@@ -102,7 +118,7 @@ const LoginScreen = () => {
           ¿No tienes una cuenta? Regístrate aquí
         </button>
       </div>
-
+      {/* Componente RegisterModal */}
       <RegisterModal id="userRegisterModal" defaultRole="USER_ROLE" />
     </div>
   );
