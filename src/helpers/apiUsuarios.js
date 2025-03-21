@@ -30,7 +30,7 @@ const getUsuarios = async () => {
 const postUsuario = async (userData) => {
   try {
     const resp = await fetch(url, {
-      method: "POST", // Indicamos el método
+      method: "POST",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
@@ -44,7 +44,7 @@ const postUsuario = async (userData) => {
       throw new Error(errorMsg);
     }
 
-    const data = await resp.json(); // Parseamos la respuesta a JSON
+    const data = await resp.json();
     console.log("Respuesta exitosa:", data);
     return { status: resp.status, data };
   } catch (error) {

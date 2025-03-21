@@ -22,7 +22,6 @@ const RegisterModal = ({ id = "registerModal", defaultRole = "USER_ROLE" }) => {
   };
   const registerUser = async (data) => {
     try {
-      // Verificar que las contraseñas coincidan
       if (data.password !== data.confirmPassword) {
         setErrorMessage("Las contraseñas no coinciden.");
         return;
@@ -38,6 +37,7 @@ const RegisterModal = ({ id = "registerModal", defaultRole = "USER_ROLE" }) => {
         );
         setErrorMessage(null);
         reset();
+
         setTimeout(() => {
           closeModal();
         }, 2000);
@@ -57,12 +57,11 @@ const RegisterModal = ({ id = "registerModal", defaultRole = "USER_ROLE" }) => {
       modalElement.classList.remove("show");
       modalElement.style.display = "none";
       modalElement.setAttribute("aria-hidden", "true");
-      // Eliminar backdrop si existe
+
       const backdrop = document.querySelector(".modal-backdrop");
       if (backdrop) {
         backdrop.remove();
       }
-
       modalElement.removeAttribute("aria-modal");
       document.body.classList.remove("modal-open");
       document.body.style.overflow = "";
@@ -196,13 +195,12 @@ const RegisterModal = ({ id = "registerModal", defaultRole = "USER_ROLE" }) => {
                 )}
               </div>
 
-              {/* Mensaje de error global, si lo hay */}
               {errorMessage && (
                 <div className="alert alert-danger" role="alert">
                   {errorMessage}
                 </div>
               )}
-              {/* Mensaje de éxito global, si lo hay */}
+
               {successMessage && (
                 <div className="alert alert-success" role="alert">
                   {successMessage}
