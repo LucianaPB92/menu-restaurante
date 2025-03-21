@@ -1,4 +1,4 @@
-const url = "https://proyecto-menu-de-restaurante.onrender.com/api/usuarios";
+const url = "https://webserver-mfl9.onrender.com/api/usuarios";
 
 const getUsuario = async (id) => {
   const resp = await fetch(url + "/" + id, {
@@ -10,7 +10,6 @@ const getUsuario = async (id) => {
   });
 
   const data = await resp.json();
-
   return data;
 };
 
@@ -31,7 +30,7 @@ const getUsuarios = async () => {
 const postUsuario = async (userData) => {
   try {
     const resp = await fetch(url, {
-      method: "POST",
+      method: "POST", // Indicamos el método
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
@@ -45,7 +44,7 @@ const postUsuario = async (userData) => {
       throw new Error(errorMsg);
     }
 
-    const data = await resp.json();
+    const data = await resp.json(); // Parseamos la respuesta a JSON
     console.log("Respuesta exitosa:", data);
     return { status: resp.status, data };
   } catch (error) {
@@ -65,6 +64,7 @@ const inactivarUsuario = async (id) => {
     });
 
     const data = await resp.json();
+    console.log("Respuesta del servidor:", data);
     if (!resp.ok) throw new Error(data.message || "Error al inactivar usuario");
 
     return data.usuarioBorrado;
@@ -73,4 +73,31 @@ const inactivarUsuario = async (id) => {
     throw error;
   }
 };
-export { postUsuario, getUsuario, getUsuarios, inactivarUsuario };
+
+const reactivarUsuario = async (id) => {
+  try {
+    const response = await fetch(`${url}/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "x-token": JSON.parse(localStorage.getItem("token")),
+      },
+    });
+    if (!response.ok) {
+      throw new Error("No se pudo reactivar el usuario");
+    }
+    const data = await response.json();
+    console.log("Datos recibidos del backend:", data);
+    return data.usuario;
+  } catch (error) {
+    console.error("Hubo un problema al reactivar el usuario:", error.message);
+    throw error;
+  }
+};
+export {
+  postUsuario,
+  getUsuario,
+  getUsuarios,
+  inactivarUsuario,
+  reactivarUsuario,
+};
