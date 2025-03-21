@@ -1,37 +1,36 @@
 .home-container {
-    height: 100vh;
-    width: 100%;
-    background: linear-gradient(135deg, #f4f3f5 0%, #fca625 100%);
-    color: white;
-  }
-  
-  .home-container h1 {
-    font-size: 3rem;
-    font-weight: bold;
-  }
-  
-  .home-container p {
-    font-size: 1.25rem;
-  }
-  
-  .home-container .btn-primary {
-    background-color: #ff5f6d;
-    border: none;
-  }
-  
-  .home-container .btn-primary:hover {
-    background-color: #ff7e5f;
-    color: white;
-  }
-  
-  .home-container .btn-link {
-    font-size: 1.15rem;
-    color: #f7b42c;
-    text-decoration: underline;
-  }
-  
-  .home-container .btn-link:hover {
-    color: #ffcc33;
-    text-decoration: none;
-  }
-  
+  height: 100vh;
+  width: 100%;
+  background: linear-gradient(135deg, #f86f45 0%, #fc2c25 100%);
+  color: white;
+}
+
+.home-container h1 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.home-container p {
+  font-size: 1.25rem;
+}
+
+.home-container .btn-primary {
+  background-color: #ff5f6d;
+  border: none;
+}
+
+.home-container .btn-primary:hover {
+  background-color: #ff7e5f;
+  color: white;
+}
+
+.home-container .btn-link {
+  font-size: 1.15rem;
+  color: #f7b42c;
+  text-decoration: underline;
+}
+
+.home-container .btn-link:hover {
+  color: #ffcc33;
+  text-decoration: none;
+}
