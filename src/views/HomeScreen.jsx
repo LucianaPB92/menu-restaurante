@@ -35,8 +35,6 @@ const HomeScreen = () => {
           className="img-fluid mb-4"
         />
       </div>
-
-      {/* Secciones por categorías */}
       <div className="container">
         {categorias.map((categoria) => (
           <div key={categoria._id} className="mb-5">
