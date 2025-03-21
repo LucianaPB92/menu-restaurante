@@ -5,6 +5,8 @@ import { postUsuario } from "../helpers/apiUsuarios";
 const RegisterModal = ({ id = "registerModal", defaultRole = "USER_ROLE" }) => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const {
     register,
     handleSubmit,
@@ -12,6 +14,12 @@ const RegisterModal = ({ id = "registerModal", defaultRole = "USER_ROLE" }) => {
     formState: { errors },
   } = useForm();
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
   const registerUser = async (data) => {
     try {
       // Verificar que las contraseñas coincidan
@@ -19,18 +27,17 @@ const RegisterModal = ({ id = "registerModal", defaultRole = "USER_ROLE" }) => {
         setErrorMessage("Las contraseñas no coinciden.");
         return;
       }
-      const { confirmPassword, ...userData } = data; // Excluir confirmPassword
-      userData.rol = defaultRole; // Asegurar que role esté incluido
+      const { confirmPassword, ...userData } = data;
+      userData.rol = defaultRole;
 
-      const response = await postUsuario(userData); // Llamamos a la función para registrar el usuario
+      const response = await postUsuario(userData);
 
       if (response.status === 201) {
         setSuccessMessage(
           response.data.msg || "Usuario registrado exitosamente."
         );
-        setErrorMessage(null); // Limpiar mensaje de error si es exitoso
-        reset(); // Limpiar el formulario
-        // Mostrar el mensaje y cerrar el modal después de 2 segundos
+        setErrorMessage(null);
+        reset();
         setTimeout(() => {
           closeModal();
         }, 2000);
@@ -39,15 +46,14 @@ const RegisterModal = ({ id = "registerModal", defaultRole = "USER_ROLE" }) => {
       console.error("Error al registrar usuario:", error.message);
       setErrorMessage(
         error.message || "Ocurrió un error inesperado al registrar el usuario."
-      ); // Mostrar el error en el modal
-      setSuccessMessage(null); // Limpiar mensaje de éxito si ocurre un error
+      );
+      setSuccessMessage(null);
     }
   };
 
   const closeModal = () => {
     const modalElement = document.getElementById(id);
     if (modalElement) {
-      // Remover la clase `show` y agregar `aria-hidden`
       modalElement.classList.remove("show");
       modalElement.style.display = "none";
       modalElement.setAttribute("aria-hidden", "true");
@@ -56,7 +62,7 @@ const RegisterModal = ({ id = "registerModal", defaultRole = "USER_ROLE" }) => {
       if (backdrop) {
         backdrop.remove();
       }
-      // Restaurar el atributo `aria-modal` y el `role` si es necesario
+
       modalElement.removeAttribute("aria-modal");
       document.body.classList.remove("modal-open");
       document.body.style.overflow = "";
@@ -67,7 +73,6 @@ const RegisterModal = ({ id = "registerModal", defaultRole = "USER_ROLE" }) => {
   };
 
   useEffect(() => {
-    // Limpiar el mensaje de éxito cuando el modal se cierra
     const modalElement = document.getElementById(id);
 
     if (modalElement) {
@@ -89,8 +94,6 @@ const RegisterModal = ({ id = "registerModal", defaultRole = "USER_ROLE" }) => {
       tabIndex="-1"
       aria-labelledby={`${id}Label`}
       aria-hidden="true"
-      // data-bs-backdrop="static"
-      // data-bs-keyboard="false"
     >
       <div className="modal-dialog">
         <div className="modal-content">
@@ -100,7 +103,7 @@ const RegisterModal = ({ id = "registerModal", defaultRole = "USER_ROLE" }) => {
             </h5>
             <button
               type="button"
-              className="btn-close"
+              className="btn-close my-2"
               data-bs-dismiss="modal"
               aria-hidden="true"
               data-bs-backdrop="static"
@@ -141,32 +144,58 @@ const RegisterModal = ({ id = "registerModal", defaultRole = "USER_ROLE" }) => {
                 <label htmlFor="regPassword" className="form-label">
                   Contraseña
                 </label>
-                <input
-                  type="password"
-                  className="form-control"
-                  id="regPassword"
-                  {...register("password", { required: true })}
-                />
+                <div className="input-group">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    className="form-control"
+                    id="regPassword"
+                    {...register("password", { required: true })}
+                  />
+                  <button
+                    type="button"
+                    className="btn btn-outline-secondary"
+                    onClick={togglePasswordVisibility}
+                  >
+                    <i
+                      className={showPassword ? "bi bi-eye" : "bi bi-eye-slash"}
+                    ></i>
+                  </button>
+                </div>
                 {errors.password?.type === "required" && (
                   <p className="text-danger">Contraseña obligatoria</p>
                 )}
               </div>
+
               <div className="mb-3">
                 <label htmlFor="confirmPassword" className="form-label">
                   Confirmar Contraseña
                 </label>
-                <input
-                  type="password"
-                  className="form-control"
-                  id="confirmPassword"
-                  {...register("confirmPassword", { required: true })}
-                />
+                <div className="input-group">
+                  <input
+                    type={showConfirmPassword ? "text" : "password"}
+                    className="form-control"
+                    id="confirmPassword"
+                    {...register("confirmPassword", { required: true })}
+                  />
+                  <button
+                    type="button"
+                    className="btn btn-outline-secondary"
+                    onClick={toggleConfirmPasswordVisibility}
+                  >
+                    <i
+                      className={
+                        showConfirmPassword ? "bi bi-eye" : "bi bi-eye-slash"
+                      }
+                    ></i>
+                  </button>
+                </div>
                 {errors.confirmPassword?.type === "required" && (
                   <p className="text-danger">
                     Confirmar contraseña es obligatorio
                   </p>
                 )}
               </div>
+
               {/* Mensaje de error global, si lo hay */}
               {errorMessage && (
                 <div className="alert alert-danger" role="alert">
@@ -180,7 +209,7 @@ const RegisterModal = ({ id = "registerModal", defaultRole = "USER_ROLE" }) => {
                 </div>
               )}
               <button type="submit" className="btn btn-primary">
-                Registrarse
+                Registrar
               </button>
             </form>
           </div>
