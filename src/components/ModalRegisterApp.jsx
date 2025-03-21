@@ -27,6 +27,8 @@ const RegisterModal = ({ id = "registerModal", defaultRole = "USER_ROLE" }) => {
         return;
       }
       const { confirmPassword, ...userData } = data;
+      userData.rol = defaultRole;
+
       const response = await postUsuario(userData);
 
       if (response.status === 201) {
@@ -55,6 +57,7 @@ const RegisterModal = ({ id = "registerModal", defaultRole = "USER_ROLE" }) => {
       modalElement.classList.remove("show");
       modalElement.style.display = "none";
       modalElement.setAttribute("aria-hidden", "true");
+
       const backdrop = document.querySelector(".modal-backdrop");
       if (backdrop) {
         backdrop.remove();
@@ -191,11 +194,13 @@ const RegisterModal = ({ id = "registerModal", defaultRole = "USER_ROLE" }) => {
                   </p>
                 )}
               </div>
+
               {errorMessage && (
                 <div className="alert alert-danger" role="alert">
                   {errorMessage}
                 </div>
               )}
+
               {successMessage && (
                 <div className="alert alert-success" role="alert">
                   {successMessage}
