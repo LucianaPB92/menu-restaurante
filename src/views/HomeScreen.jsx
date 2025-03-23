@@ -3,6 +3,7 @@ import { obtenerCategorias } from "../helpers/apiCategorias";
 import { obtenerProductos } from "../helpers/apiProductos";
 import "../css/HomeScreen.css";
 
+
 const HomeScreen = () => {
   const [categorias, setCategorias] = useState([]);
   const [productos, setProductos] = useState([]);
@@ -44,7 +45,7 @@ const HomeScreen = () => {
                 .filter((producto) => producto.categoria._id === categoria._id)
                 .map((producto) => (
                   <div key={producto._id} className="col-md-4">
-                    <div className="card">
+                    <div className="card ">
                       <img
                         src={producto.img || "https://via.placeholder.com/150"}
                         className="card-img-top"

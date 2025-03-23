@@ -1,4 +1,80 @@
-.nav-link.active{
+/* Navbar Contenedor */
+.navbar {
+    background: linear-gradient(135deg, #ff5733 0%, #f39c12 100%); /* Rojo a naranja */
+    padding: 15px 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Logo del Navbar */
+  .navbar .navbar-brand {
+    font-size: 1.8rem;
     font-weight: bold;
-    color: blue;
-}
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  
+  /* Links del Navbar */
+  .navbar .navbar-nav {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+  
+  /* Estilo de los enlaces */
+  .navbar .nav-link {
+    font-size: 1.1rem;
+    color: white;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    transition: all 0.3s ease; /* Transición suave */
+  }
+  
+  /* Enlace activo */
+  .navbar .nav-link.active {
+    color: #f7b42c; /* Amarillo */
+    font-weight: bold;
+    text-decoration: underline;
+  }
+  
+  /* Hover en los enlaces */
+  .navbar .nav-link:hover {
+    background-color: #f39c12; /* Naranja */
+    color: white;
+    transform: scale(1.05); /* Efecto de aumento */
+  }
+  
+  /* Dropdown de Administración */
+  .navbar .nav-item.dropdown .dropdown-menu {
+    background-color: #fc2c25; /* Rojo fuerte para el dropdown */
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  }
+  
+  .navbar .nav-item.dropdown .dropdown-item {
+    color: white;
+    font-size: 1rem;
+  }
+  
+  .navbar .nav-item.dropdown .dropdown-item:hover {
+    background-color: #f39c12; /* Naranja cuando se pasa el mouse */
+    color: white;
+  }
+  
+  /* Botón de Cerrar sesión */
+  .navbar .nav-link.btn-link {
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .navbar .nav-link.btn-link:hover {
+    color: #f39c12; /* Naranja al pasar el mouse */
+  }
+  
+  /* Estilo del menú desplegable */
+  .navbar-toggler-icon {
+    background-color: white;
+  }
+  

@@ -1,36 +1,147 @@
+/* home-container: Fondo degradado y más espacioso */
 .home-container {
   height: 100vh;
   width: 100%;
-  background: linear-gradient(135deg, #f86f45 0%, #fc2c25 100%);
+  background: linear-gradient(135deg, #ff5733 0%, #f39c12 100%); /* Rojo a Naranja */
   color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
+/* Título con mayor tamaño y espaciado */
 .home-container h1 {
-  font-size: 3rem;
+  font-size: 3.5rem;
   font-weight: bold;
+  margin-bottom: 20px;
+  text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2); /* Sombra para hacerlo más llamativo */
+  color: #fff;
 }
 
+/* Párrafo con mayor contraste y tamaño ajustado */
 .home-container p {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  color: #fff;
+  font-family: 'Arial', sans-serif;
 }
 
+/* Estilo para el botón principal con borde redondeado */
 .home-container .btn-primary {
-  background-color: #ff5f6d;
+  background-color: #ff5733; /* Rojo */
   border: none;
+  padding: 15px 25px;
+  border-radius: 30px; /* Bordes redondeados */
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease; /* Transición suave en el color */
+  cursor: pointer;
 }
 
 .home-container .btn-primary:hover {
-  background-color: #ff7e5f;
+  background-color: #e64a19; /* Rojo más oscuro al pasar el mouse */
   color: white;
 }
 
+/* Estilo para el enlace con color amarillo y animación */
 .home-container .btn-link {
-  font-size: 1.15rem;
-  color: #f7b42c;
+  font-size: 1.25rem;
+  color: #f7b42c; /* Naranja/Amarillo */
   text-decoration: underline;
+  font-weight: bold;
+  transition: color 0.3s ease; /* Transición suave en el color */
 }
 
 .home-container .btn-link:hover {
-  color: #ffcc33;
+  color: #ffcc33; /* Amarillo más brillante */
   text-decoration: none;
+}
+
+/* Efectos adicionales para mejorar la apariencia */
+.home-container .btn-primary:focus, 
+.home-container .btn-link:focus {
+  outline: none; /* Eliminar el borde por defecto */
+}
+/* Contenedor de las cards */
+.container {
+  padding: 20px;
+}
+
+
+/* Estilo de cada card */
+.card {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: #fff; /* Blanco para el fondo */
+  min-height: 400px; /* Añadir altura mínima */
+}
+
+
+
+/* Efecto al pasar el ratón sobre la card */
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Imagen de la card */
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+  width: 100%;
+  display: block;
+  margin: 0 auto; /* Centra la imagen dentro de su contenedor */
+}
+
+
+/* Cuerpo de la card */
+.card-body {
+  padding: 20px;
+  background-color: #f8f9fa; /* Gris claro para el fondo */
+}
+
+/* Título de la card */
+.card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #2a5298; /* Color principal para el título */
+  margin-bottom: 10px;
+}
+
+/* Descripción y precio */
+.card-text {
+  color: #333;
+  font-size: 1rem;
+  margin-bottom: 15px;
+}
+
+/* Botón de la card */
+.card .btn-primary {
+  background-color: #f39c12; /* Naranja */
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+/* Efecto hover en el botón */
+.card .btn-primary:hover {
+  background-color: #e74c3c; /* Rojo */
+  color: white;
+}
+
+/* Fondo de la card */
+.card-body {
+  background-color: #fff; 
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around; 
 }
