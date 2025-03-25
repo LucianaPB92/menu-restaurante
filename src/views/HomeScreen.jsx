@@ -35,7 +35,7 @@ const HomeScreen = () => {
           className="img-fluid mb-4"
         />
       </div>
-      <div className="container">
+      <div className="container mt-3">
         {categorias.map((categoria) => (
           <div key={categoria._id} className="mb-5">
             <h2 className="text-center mb-4">{categoria.nombre}</h2>
