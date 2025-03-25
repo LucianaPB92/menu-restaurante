@@ -206,7 +206,7 @@ const AdminProductoScreen = () => {
 
       setProductos((prevProductos) =>
         prevProductos.map((producto) =>
-          producto._id === productoBorrado.id ? productoBorrado : producto
+          producto._id === id ? productoBorrado : producto
         )
       );
 
