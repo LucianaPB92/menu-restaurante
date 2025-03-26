@@ -4,6 +4,10 @@ import { obtenerProductos } from "../helpers/apiProductos";
 import "../css/HomeScreen.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+// Importar imágenes del banner
+import bannerDesktop from "../assets/banner-desktop.jpg";
+import bannerMobile from "../assets/banner-celu2.jpeg";
+
 const HomeScreen = () => {
   const [categorias, setCategorias] = useState([]);
   const [productos, setProductos] = useState([]);
@@ -28,14 +32,20 @@ const HomeScreen = () => {
 
   return (
     <div>
-      <div className="home-container d-flex flex-column justify-content-center align-items-center text-center">
-        <h1>Bienvenidos a nuestra tienda</h1>
-        <img
-          src="https://www.vitalbodyplus.de/cdn/shop/articles/ungesundes-fast-food-burger-und-pommes-150946.jpg?v=1702709841"
-          alt="Imagen principal"
-          className="img-fluid mb-4"
-        />
+      {/* Banner principal */}
+      <div className="banner-container">
+      <img
+  srcSet={`${bannerMobile} 600w, ${bannerDesktop} 1200w`}
+  sizes="(max-width: 768px) 100vw, 1200px"
+  src={bannerDesktop}  // Imagen predeterminada para pantallas grandes
+  alt="Banner principal"
+  className="banner-img img-fluid"
+/>
+
+
+
       </div>
+
       <div className="container">
         {categorias.map((categoria) => (
           <div key={categoria._id} className="mb-5">
@@ -60,7 +70,7 @@ const HomeScreen = () => {
                       <div className="row">
                         {grupo.map((producto) => (
                           <div key={producto._id} className="col-md-3">
-                            <div className="card">
+                            <div className="card h-100">
                               <img
                                 src={producto.img || "https://via.placeholder.com/150"}
                                 className="card-img-top"

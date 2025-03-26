@@ -72,6 +72,37 @@
 }
 
 
+/* Ajustes generales para el contenedor */
+.banner-container {
+  width: 100%;
+  height: auto; /* Eliminar altura fija para evitar el recorte */
+}
+
+/* Media Query para móviles */
+@media (max-width: 768px) {
+  .banner-container {
+    height: auto;  /* Deja que la imagen se ajuste automáticamente en móviles */
+  }
+
+  .banner-img {
+    width: 100%;
+    height: auto;  /* Ajusta la altura de la imagen para evitar recortes */
+  }
+}
+
+/* Media Query para pantallas grandes */
+@media (min-width: 769px) {
+  .banner-container {
+    height: auto;  /* Ajuste automático en pantallas grandes */
+  }
+
+  .banner-img {
+    width: 100%;
+    height: auto;  /* Sin recorte en pantallas grandes */
+  }
+}
+
+
 /* Estilo de cada card */
 .card {
   border-radius: 10px;
