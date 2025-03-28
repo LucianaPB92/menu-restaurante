@@ -3,8 +3,6 @@ import { obtenerCategorias } from "../helpers/apiCategorias";
 import { obtenerProductos } from "../helpers/apiProductos";
 import "../css/HomeScreen.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-
-// Importar imágenes del banner
 import bannerDesktop from "../assets/banner-desktop.jpg";
 import bannerMobile from "../assets/banner-mobile.jpg";
 
@@ -36,7 +34,7 @@ const HomeScreen = () => {
       <div className="banner-container">
       <div className="banner-container">
   <img
-    src={bannerDesktop} // Fallback por si `srcSet` no funciona
+    src={bannerDesktop} 
     srcSet={`${bannerMobile} 600w, ${bannerDesktop} 1200w`}
     sizes="(max-width: 768px) 600px, 1200px"
     alt="Banner principal"

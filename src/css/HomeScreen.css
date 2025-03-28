@@ -71,8 +71,6 @@
   padding: 20px;
 }
 
-
-/* Ajustes generales para el contenedor */
 .banner-container {
   width: 100%;
   height: auto;
@@ -87,19 +85,19 @@
   display: block;
 }
 
-/* Ajustes para móviles */
+
 
 @media (max-width: 768px) {
   .banner-img {
-    content: url("../assets/banner-mobile.jpg"); /* Fuerza el cambio en móviles */
+    content: url("../assets/banner-mobile.jpg"); 
     
   }
 }
 
-/* Solución para que el navbar no tape el banner */
+
 .navbar {
   position: relative;
-  z-index: 10; /* Asegura que no tape el banner */
+  z-index: 10; 
 }
 
 .banner-container {
@@ -108,22 +106,22 @@
 
 @media (max-width: 550px) {
   .banner-container {
-    padding-top: 60px; /* Baja la imagen para que no la tape */
+    padding-top: 60px; 
   }
 
   .banner-img {
-    height: 200px; /* Reduce la altura del banner */
+    height: 200px; 
   }
 
   .navbar {
-    height: 50px; /* Reduce la altura del navbar */
+    height: 50px; 
   }
   .logo {
-    max-height: 40px; /* Ajusta el tamaño del logo */
+    max-height: 40px; 
   }
 }
 
-/* Estilo de cada card */
+
 .card {
   border-radius: 10px;
   overflow: hidden;
