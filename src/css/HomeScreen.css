@@ -75,33 +75,53 @@
 /* Ajustes generales para el contenedor */
 .banner-container {
   width: 100%;
-  height: auto; /* Eliminar altura fija para evitar el recorte */
+  height: auto;
+  position: relative;
+  overflow: hidden;
 }
 
-/* Media Query para móviles */
+.banner-img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
+
+/* Ajustes para móviles */
+
 @media (max-width: 768px) {
-  .banner-container {
-    height: auto;  /* Deja que la imagen se ajuste automáticamente en móviles */
-  }
-
   .banner-img {
-    width: 100%;
-    height: auto;  /* Ajusta la altura de la imagen para evitar recortes */
+    content: url("../assets/banner-mobile.jpg"); /* Fuerza el cambio en móviles */
+    
   }
 }
 
-/* Media Query para pantallas grandes */
-@media (min-width: 769px) {
+/* Solución para que el navbar no tape el banner */
+.navbar {
+  position: relative;
+  z-index: 10; /* Asegura que no tape el banner */
+}
+
+.banner-container {
+  z-index: 1;
+}
+
+@media (max-width: 550px) {
   .banner-container {
-    height: auto;  /* Ajuste automático en pantallas grandes */
+    padding-top: 60px; /* Baja la imagen para que no la tape */
   }
 
   .banner-img {
-    width: 100%;
-    height: auto;  /* Sin recorte en pantallas grandes */
+    height: 200px; /* Reduce la altura del banner */
+  }
+
+  .navbar {
+    height: 50px; /* Reduce la altura del navbar */
+  }
+  .logo {
+    max-height: 40px; /* Ajusta el tamaño del logo */
   }
 }
-
 
 /* Estilo de cada card */
 .card {

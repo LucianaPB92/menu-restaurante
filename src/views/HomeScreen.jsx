@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 // Importar imágenes del banner
 import bannerDesktop from "../assets/banner-desktop.jpg";
-import bannerMobile from "../assets/banner-celu2.jpeg";
+import bannerMobile from "../assets/banner-mobile.jpg";
 
 const HomeScreen = () => {
   const [categorias, setCategorias] = useState([]);
@@ -34,13 +34,16 @@ const HomeScreen = () => {
     <div>
       {/* Banner principal */}
       <div className="banner-container">
-      <img
-  srcSet={`${bannerMobile} 600w, ${bannerDesktop} 1200w`}
-  sizes="(max-width: 768px) 100vw, 1200px"
-  src={bannerDesktop}  // Imagen predeterminada para pantallas grandes
-  alt="Banner principal"
-  className="banner-img img-fluid"
-/>
+      <div className="banner-container">
+  <img
+    src={bannerDesktop} // Fallback por si `srcSet` no funciona
+    srcSet={`${bannerMobile} 600w, ${bannerDesktop} 1200w`}
+    sizes="(max-width: 768px) 600px, 1200px"
+    alt="Banner principal"
+    className="banner-img"
+  />
+</div>
+
 
 
 

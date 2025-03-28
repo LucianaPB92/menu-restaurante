@@ -58,13 +58,13 @@ const NavBarApp = () => {
           <img
             src={logoDesktop}
             alt="Logo"
-            className="d-none d-md-block"
+            className="logo d-none d-md-block"
             style={{ height: "50px" }}
           />
           <img
             src={logoMobile}
             alt="Logo"
-            className="d-block d-md-none"
+            className="logo d-block d-md-none"
             style={{ height: "40px" }}
           />
         </Link>
@@ -141,4 +141,3 @@ const NavBarApp = () => {
 };
 
 export default NavBarApp;
-
