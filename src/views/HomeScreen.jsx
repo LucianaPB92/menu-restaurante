@@ -46,7 +46,9 @@ const HomeScreen = () => {
         />
       </div>
 
+
      {/* Secciones por categorías */}
+     
      <div className="container px-0">
         {categorias.map((categoria) => (
           <div key={categoria._id} className="mb-5">
