@@ -106,12 +106,10 @@
 
 @media (max-width: 550px) {
   .banner-container {
-    padding-top: 60px; 
+    padding-top: 7%; 
   }
 
-  .banner-img {
-    height: 200px; 
-  }
+ 
 
   .navbar {
     height: 50px; 
