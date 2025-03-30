@@ -1,8 +1,7 @@
-
 .home-container {
   height: 100vh;
   width: 100%;
-  background: linear-gradient(135deg, #ff5733 0%, #f39c12 100%); 
+  background: linear-gradient(135deg, #ff5733 0%, #f39c12 100%);
   color: white;
   display: flex;
   justify-content: center;
@@ -12,59 +11,54 @@
   box-sizing: border-box;
 }
 
-
 .home-container h1 {
   font-size: 3.5rem;
   font-weight: bold;
   margin-bottom: 20px;
-  text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2); 
+  text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
   color: #fff;
 }
-
 
 .home-container p {
   font-size: 1.5rem;
   line-height: 1.6;
   margin-bottom: 30px;
   color: #fff;
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
 }
 
-
 .home-container .btn-primary {
-  background-color: #ff5733; 
+  background-color: #ff5733;
   border: none;
   padding: 15px 25px;
-  border-radius: 30px; 
+  border-radius: 30px;
   font-size: 1.2rem;
   font-weight: bold;
-  transition: background-color 0.3s ease; 
+  transition: background-color 0.3s ease;
   cursor: pointer;
 }
 
 .home-container .btn-primary:hover {
-  background-color: #e64a19; 
+  background-color: #e64a19;
   color: white;
 }
 
-
 .home-container .btn-link {
   font-size: 1.25rem;
-  color: #f7b42c; 
+  color: #f7b42c;
   text-decoration: underline;
   font-weight: bold;
-  transition: color 0.3s ease; 
+  transition: color 0.3s ease;
 }
 
 .home-container .btn-link:hover {
-  color: #ffcc33; 
+  color: #ffcc33;
   text-decoration: none;
 }
 
-
-.home-container .btn-primary:focus, 
+.home-container .btn-primary:focus,
 .home-container .btn-link:focus {
-  outline: none; 
+  outline: none;
 }
 
 .container {
@@ -76,6 +70,7 @@
   height: auto;
   position: relative;
   overflow: hidden;
+  z-index: 1;
 }
 
 .banner-img {
@@ -85,109 +80,143 @@
   display: block;
 }
 
-
-
-@media (max-width: 768px) {
-  .banner-img {
-    content: url("../assets/banner-mobile.jpg"); 
-    
-  }
+/* Ajuste del contenedor del swiper */
+.swiper-container {
+  width: 100%;
+  padding: 20px 25px;
 }
 
 
-.navbar {
-  position: relative;
-  z-index: 10; 
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 0 0 auto;
 }
 
-.banner-container {
-  z-index: 1;
+
+.card-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 5px;
 }
 
-@media (max-width: 550px) {
-  .banner-container {
-    padding-top: 7%; 
-  }
-
- 
-
-  .navbar {
-    height: 50px; 
-  }
-  .logo {
-    max-height: 40px; 
-  }
-}
-
+/*cards*/
 
 .card {
-  border-radius: 10px;
+  width: 100%;
+  max-width: none; 
+  border-radius: 25px !important;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  background-color: #fff; 
-  min-height: 400px; 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100% !important;
+  align-items: stretch;
+  min-height: 320px;
 }
-
-
-
-
 .card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-
-.card-img-top {
-  height: 200px;
+.card img {
+  height: 140px;
   object-fit: cover;
   width: 100%;
-  display: block;
-  margin: 0 auto; 
 }
-
-
 
 .card-body {
-  padding: 20px;
-  background-color: #f8f9fa; 
+  padding: 5px 10px !important;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
-
 
 .card-title {
-  font-size: 1.25rem;
-  font-weight: bold;
-  color: #2a5298; 
-  margin-bottom: 10px;
+  font-size: large;
 }
-
-
 .card-text {
-  color: #333;
-  font-size: 1rem;
-  margin-bottom: 15px;
+  overflow-wrap: break-word;
+  white-space: normal;
+  margin: 0;
+  font-size: medium;
 }
 
-
-.card .btn-primary {
-  background-color: #f39c12; 
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  position: absolute;
+  font-size: 2.5rem; 
   font-weight: bold;
-  transition: background-color 0.3s ease;
+  color: #fc2525;
+}
+
+.swiper-button-prev:after {
+  right: 50%;
+}
+.swiper-button-next:after {
+  left: 50%;
+}
+
+.card .btn {
+  background: linear-gradient(135deg, #f86f45 0%, #fc2c25 100%);
+  font-size: 1rem;
+}
+
+@media (max-width: 1279px) {
+  .card-text {
+    font-size: small;
+    margin: 5px 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .banner-img {
+    content: url("../assets/banner-mobile.jpg");
+  }
 }
 
 
-.card .btn-primary:hover {
-  background-color: #e74c3c; 
-  color: white;
+@media (max-width: 550px) {
+  .banner-container {
+    padding-top: 7%;
+  }
+  .logo {
+    max-height: 40px;
+  }
 }
 
-.card-body {
-  background-color: #fff; }
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around; 
+@media (max-width: 576px) {
+  .card img {
+    height: 150px;
+  }
+
+  .card-body {
+    padding: 8px;
+  }
+
+  .card .btn {
+    padding: 6px 12px;
+    font-size: 1rem;
+  }
+
+  .swiper-button-prev:after,
+  .swiper-button-next:after {
+    position: absolute;
+    font-size: 1.4rem;
+  }
+
+  .swiper-button-prev:after {
+    left: 7%;
+  }
+  .swiper-button-next:after {
+    right: 7%;
+  }
 }
+
+
+
