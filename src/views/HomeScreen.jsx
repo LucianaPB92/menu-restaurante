@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { obtenerCategorias } from "../helpers/apiCategorias";
 import { obtenerProductos } from "../helpers/apiProductos";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 import "../css/HomeScreen.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import bannerDesktop from "../assets/banner-desktop.jpg";
@@ -41,91 +46,59 @@ const HomeScreen = () => {
         />
       </div>
 
-      <div className="container">
+     {/* Secciones por categorías */}
+     <div className="container px-0">
         {categorias.map((categoria) => (
           <div key={categoria._id} className="mb-5">
             <h2 className="text-center mb-4">{categoria.nombre}</h2>
-            <div
-              id={`carousel-${categoria._id}`}
-              className="carousel slide"
-              data-bs-ride="carousel"
+            <Swiper
+              modules={[Navigation, Pagination, Autoplay]}
+              spaceBetween={25}
+              slidesPerView={1}
+              breakpoints={{
+                480: { slidesPerView: 2 },
+                768: { slidesPerView: 3 },
+                1024: { slidesPerView: 4 },
+              }}
+              navigation
+              pagination={{ clickable: true }}
+              autoplay={{ delay: 3000, disableOnInteraction: false }}
+              className="swiper-container"
             >
-              <div className="carousel-inner">
-                {productos
-                  .filter(
-                    (producto) => producto.categoria._id === categoria._id
-                  )
-                  .reduce((acc, producto, index) => {
-                    if (index % 4 === 0) {
-                      acc.push([]);
-                    }
-                    acc[acc.length - 1].push(producto);
-                    return acc;
-                  }, [])
-                  .map((grupo, index) => (
-                    <div
-                      key={index}
-                      className={`carousel-item ${index === 0 ? "active" : ""}`}
-                    >
-                      <div className="row">
-                        {grupo.map((producto) => (
-                          <div key={producto._id} className="col-md-3">
-                            <div className="card h-100">
-                              <img
-                                src={
-                                  producto.img ||
-                                  "https://via.placeholder.com/150"
-                                }
-                                className="card-img-top"
-                                alt={producto.nombre}
-                              />
-                              <div className="card-body">
-                                <h5 className="card-title">
-                                  {producto.nombre}
-                                </h5>
-                                <p className="card-text">
-                                  {producto.descripcion ||
-                                    "Descripción no disponible."}
-                                </p>
-                                <p className="card-text">
-                                  <strong>Precio:</strong> ${producto.precio}
-                                </p>
-                                <button className="btn btn-primary">
-                                  Comprar
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        ))}
+              {productos
+                .filter((producto) => producto.categoria._id === categoria._id)
+                .map((producto) => (
+                  <SwiperSlide key={producto._id}>
+                    <div className="card-wrapper">
+                      <div className="card">
+                        <img
+                          src={
+                            producto.img || "https://via.placeholder.com/150"
+                          }
+                          className="card-img-top"
+                          alt={producto.nombre}
+                        />
+                        <div className="card-body">
+                          <h5 className="card-title">{producto.nombre}</h5>
+                          <p className="card-text">
+                            {producto.descripcion ||
+                              "Descripción no disponible."}
+                          </p>
+                          <p className="card-text">
+                            <strong>${producto.precio}</strong> 
+                          </p>
+                        <button
+                          className="btn my-1"
+                          // onClick={handleComprar}
+                        >
+                          Comprar
+                        </button>
+                        </div>
                       </div>
                     </div>
-                  ))}
-              </div>
-              <button
-                className="carousel-control-prev"
-                type="button"
-                data-bs-target={`#carousel-${categoria._id}`}
-                data-bs-slide="prev"
-              >
-                <span
-                  className="carousel-control-prev-icon"
-                  aria-hidden="true"
-                ></span>
-                <span className="visually-hidden">Anterior</span>
-              </button>
-              <button
-                className="carousel-control-next"
-                type="button"
-                data-bs-target={`#carousel-${categoria._id}`}
-                data-bs-slide="next"
-              >
-                <span
-                  className="carousel-control-next-icon"
-                  aria-hidden="true"
-                ></span>
-                <span className="visually-hidden">Siguiente</span>
-              </button>
-            </div>
+                  </SwiperSlide>
+                ))}
+            </Swiper>
           </div>
         ))}
       </div>
