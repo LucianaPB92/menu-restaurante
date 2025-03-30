@@ -32,19 +32,13 @@ const HomeScreen = () => {
     <div>
       {/* Banner principal */}
       <div className="banner-container">
-      <div className="banner-container">
-  <img
-    src={bannerDesktop} 
-    srcSet={`${bannerMobile} 600w, ${bannerDesktop} 1200w`}
-    sizes="(max-width: 768px) 600px, 1200px"
-    alt="Banner principal"
-    className="banner-img"
-  />
-</div>
-
-
-
-
+        <img
+          src={bannerDesktop}
+          srcSet={`${bannerMobile} 600w, ${bannerDesktop} 1200w`}
+          sizes="(max-width: 768px) 600px, 1200px"
+          alt="Banner principal"
+          className="banner-img"
+        />
       </div>
 
       <div className="container">
@@ -58,7 +52,9 @@ const HomeScreen = () => {
             >
               <div className="carousel-inner">
                 {productos
-                  .filter((producto) => producto.categoria._id === categoria._id)
+                  .filter(
+                    (producto) => producto.categoria._id === categoria._id
+                  )
                   .reduce((acc, producto, index) => {
                     if (index % 4 === 0) {
                       acc.push([]);
@@ -67,25 +63,36 @@ const HomeScreen = () => {
                     return acc;
                   }, [])
                   .map((grupo, index) => (
-                    <div key={index} className={`carousel-item ${index === 0 ? "active" : ""}`}>
+                    <div
+                      key={index}
+                      className={`carousel-item ${index === 0 ? "active" : ""}`}
+                    >
                       <div className="row">
                         {grupo.map((producto) => (
                           <div key={producto._id} className="col-md-3">
                             <div className="card h-100">
                               <img
-                                src={producto.img || "https://via.placeholder.com/150"}
+                                src={
+                                  producto.img ||
+                                  "https://via.placeholder.com/150"
+                                }
                                 className="card-img-top"
                                 alt={producto.nombre}
                               />
                               <div className="card-body">
-                                <h5 className="card-title">{producto.nombre}</h5>
+                                <h5 className="card-title">
+                                  {producto.nombre}
+                                </h5>
                                 <p className="card-text">
-                                  {producto.descripcion || "Descripción no disponible."}
+                                  {producto.descripcion ||
+                                    "Descripción no disponible."}
                                 </p>
                                 <p className="card-text">
                                   <strong>Precio:</strong> ${producto.precio}
                                 </p>
-                                <button className="btn btn-primary">Comprar</button>
+                                <button className="btn btn-primary">
+                                  Comprar
+                                </button>
                               </div>
                             </div>
                           </div>
@@ -100,7 +107,10 @@ const HomeScreen = () => {
                 data-bs-target={`#carousel-${categoria._id}`}
                 data-bs-slide="prev"
               >
-                <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span
+                  className="carousel-control-prev-icon"
+                  aria-hidden="true"
+                ></span>
                 <span className="visually-hidden">Anterior</span>
               </button>
               <button
@@ -109,7 +119,10 @@ const HomeScreen = () => {
                 data-bs-target={`#carousel-${categoria._id}`}
                 data-bs-slide="next"
               >
-                <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                <span
+                  className="carousel-control-next-icon"
+                  aria-hidden="true"
+                ></span>
                 <span className="visually-hidden">Siguiente</span>
               </button>
             </div>
