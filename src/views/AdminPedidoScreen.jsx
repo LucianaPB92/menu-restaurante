@@ -65,7 +65,7 @@ const Pedidos = () => {
         <p className="text-center">No hay pedidos disponibles.</p>
       ) : (
         <div className="table-responsive">
-          <table className="table table-bordered">
+          <table className="table table-sm">
             <thead className="">
               <tr>
                 <th>ID</th>
