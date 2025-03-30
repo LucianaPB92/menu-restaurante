@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { getUsuario } from "../helpers/apiUsuarios";
 import "../css/NavBarApp.css";
-import logoDesktop from "../assets/logo-desktop.png";
 import logoMobile from "../assets/logo-mobile.png";
 
 const NavBarApp = () => {
@@ -56,16 +55,9 @@ const NavBarApp = () => {
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">
           <img
-            src={logoDesktop}
-            alt="Logo"
-            className="logo d-none d-md-block"
-            style={{ height: "50px" }}
-          />
-          <img
             src={logoMobile}
             alt="Logo"
-            className="logo d-block d-md-none"
-            style={{ height: "40px" }}
+            className="logo-mobile d-block"
           />
         </Link>
         <button
@@ -122,7 +114,7 @@ const NavBarApp = () => {
                 </ul>
               </li>
             )}
-            <li className="nav-item">
+            <li className="nav-item boton-login">
               {token ? (
                 <button className="nav-link btn btn-link" onClick={handleLogout}>
                   Cerrar sesión
