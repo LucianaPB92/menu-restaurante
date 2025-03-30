@@ -38,7 +38,7 @@ const crearPedido = async (datos) => {
 };
 const actualizarPedido = async (id, datos) => {
   const resp = await fetch(url + "/" + id, {
-    method: "POST",
+    method: "PUT",
     body: JSON.stringify(datos),
     headers: {
       "Content-type": "application/json; charset=UTF-8",
