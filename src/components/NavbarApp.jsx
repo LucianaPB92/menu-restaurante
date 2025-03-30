@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { getUsuario } from "../helpers/apiUsuarios";
-
 import "../css/NavBarApp.css";
+import logoMobile from "../assets/logo-mobile.png";
+
 const NavBarApp = () => {
   const navigate = useNavigate();
   const [userRole, setUserRole] = useState(null);
@@ -29,7 +30,6 @@ const NavBarApp = () => {
         .catch((error) => {
           if (isMounted) {
             if (error.response?.status === 401) {
-              // Manejar específicamente el error 401
               alert("No estás autorizado. Tu sesión pudo haber expirado.");
             } else {
               console.error("Error al obtener el rol del usuario:", error);
@@ -51,10 +51,14 @@ const NavBarApp = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg bg-body-secondary">
+    <nav className="navbar navbar-expand-lg bg-body-secondary fixed-top">
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">
-          Heaven's Burgers
+          <img
+            src={logoMobile}
+            alt="Logo"
+            className="logo-mobile d-block"
+          />
         </Link>
         <button
           className="navbar-toggler"
@@ -70,40 +74,16 @@ const NavBarApp = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <NavLink
-                className={({ isActive }) =>
-                  `nav-link ${isActive ? "active" : ""}`
-                }
-                to="/"
-                end
-              >
+              <NavLink className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`} to="/" end>
                 Inicio
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink
-                className={({ isActive }) =>
-                  `nav-link ${isActive ? "active" : ""}`
-                }
-                to="/productos"
-              >
-                Productos
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                className={({ isActive }) =>
-                  `nav-link ${isActive ? "active" : ""}`
-                }
-                to="/pedidos"
-              >
+              <NavLink className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`} to="/pedidos">
                 Pedidos
               </NavLink>
             </li>
-
-            {(userRole === "ADMIN_ROLE" ||
-              userRole === "MOD_ROLE" ||
-              userRole === "VENTAS_ROLE") && (
+            {(userRole === "ADMIN_ROLE" || userRole === "MOD_ROLE" || userRole === "VENTAS_ROLE") && (
               <li className="nav-item dropdown">
                 <button
                   className="nav-link dropdown-toggle btn btn-link"
@@ -134,22 +114,13 @@ const NavBarApp = () => {
                 </ul>
               </li>
             )}
-
-            <li className="nav-item">
+            <li className="nav-item boton-login">
               {token ? (
-                <button
-                  className="nav-link btn btn-link"
-                  onClick={handleLogout}
-                >
+                <button className="nav-link btn btn-link" onClick={handleLogout}>
                   Cerrar sesión
                 </button>
               ) : (
-                <NavLink
-                  className={({ isActive }) =>
-                    `nav-link ${isActive ? "active" : ""}`
-                  }
-                  to="/login"
-                >
+                <NavLink className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`} to="/login">
                   Login
                 </NavLink>
               )}

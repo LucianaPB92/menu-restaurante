@@ -1,36 +1,222 @@
 .home-container {
   height: auto;
   width: 100%;
-  background: linear-gradient(135deg, #f86f45 0%, #fc2c25 100%);
+  background: linear-gradient(135deg, #ff5733 0%, #f39c12 100%);
   color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .home-container h1 {
-  font-size: 3rem;
+  font-size: 3.5rem;
   font-weight: bold;
+  margin-bottom: 20px;
+  text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
+  color: #fff;
 }
 
 .home-container p {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  color: #fff;
+  font-family: "Arial", sans-serif;
 }
 
 .home-container .btn-primary {
-  background-color: #ff5f6d;
+  background-color: #ff5733;
   border: none;
+  padding: 15px 25px;
+  border-radius: 30px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
 }
 
 .home-container .btn-primary:hover {
-  background-color: #ff7e5f;
+  background-color: #e64a19;
   color: white;
 }
 
 .home-container .btn-link {
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   color: #f7b42c;
   text-decoration: underline;
+  font-weight: bold;
+  transition: color 0.3s ease;
 }
 
 .home-container .btn-link:hover {
   color: #ffcc33;
   text-decoration: none;
 }
+
+.home-container .btn-primary:focus,
+.home-container .btn-link:focus {
+  outline: none;
+}
+
+.container {
+  padding: 20px;
+}
+
+.banner-container {
+  width: 100%;
+  height: auto;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.banner-img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
+
+/* Ajuste del contenedor del swiper */
+.swiper-container {
+  width: 100%;
+  padding: 20px 25px;
+}
+
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+
+.card-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 5px;
+}
+
+/*cards*/
+
+.card {
+  width: 100%;
+  max-width: none; 
+  border-radius: 25px !important;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100% !important;
+  align-items: stretch;
+  min-height: 320px;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card img {
+  height: 140px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.card-body {
+  padding: 5px 10px !important;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-title {
+  font-size: large;
+}
+.card-text {
+  overflow-wrap: break-word;
+  white-space: normal;
+  margin: 0;
+  font-size: medium;
+}
+
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  position: absolute;
+  font-size: 2.5rem; 
+  font-weight: bold;
+  color: #fc2525;
+}
+
+.swiper-button-prev:after {
+  right: 50%;
+}
+.swiper-button-next:after {
+  left: 50%;
+}
+
+.card .btn {
+  background: linear-gradient(135deg, #f86f45 0%, #fc2c25 100%);
+  font-size: 1rem;
+}
+
+@media (max-width: 1279px) {
+  .card-text {
+    font-size: small;
+    margin: 5px 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .banner-img {
+    content: url("../assets/banner-mobile.jpg");
+  }
+}
+
+
+@media (max-width: 550px) {
+  .banner-container {
+    padding-top: 7%;
+  }
+  .logo {
+    max-height: 40px;
+  }
+}
+
+@media (max-width: 576px) {
+  .card img {
+    height: 150px;
+  }
+
+  .card-body {
+    padding: 8px;
+  }
+
+  .card .btn {
+    padding: 6px 12px;
+    font-size: 1rem;
+  }
+
+  .swiper-button-prev:after,
+  .swiper-button-next:after {
+    position: absolute;
+    font-size: 1.4rem;
+  }
+
+  .swiper-button-prev:after {
+    left: 7%;
+  }
+  .swiper-button-next:after {
+    right: 7%;
+  }
+}
+
+
+

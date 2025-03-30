@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { obtenerCategorias } from "../helpers/apiCategorias";
 import { obtenerProductos } from "../helpers/apiProductos";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 import "../css/HomeScreen.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import bannerDesktop from "../assets/banner-desktop.jpg";
+import bannerMobile from "../assets/banner-mobile.jpg";
 
 const HomeScreen = () => {
   const [categorias, setCategorias] = useState([]);
@@ -27,43 +35,72 @@ const HomeScreen = () => {
 
   return (
     <div>
-      <div className="home-container d-flex flex-column justify-content-center align-items-center text-center">
-        <h1>Bienvenidos a nuestra tienda</h1>
+      {/* Banner principal */}
+      <div className="banner-container">
         <img
-          src="https://www.vitalbodyplus.de/cdn/shop/articles/ungesundes-fast-food-burger-und-pommes-150946.jpg?v=1702709841"
-          alt="Imagen principal"
-          className="img-fluid mb-4"
+          src={bannerDesktop}
+          srcSet={`${bannerMobile} 600w, ${bannerDesktop} 1200w`}
+          sizes="(max-width: 768px) 600px, 1200px"
+          alt="Banner principal"
+          className="banner-img"
         />
       </div>
-      <div className="container mt-3">
+
+
+     {/* Secciones por categorías */}
+     
+     <div className="container px-0">
         {categorias.map((categoria) => (
           <div key={categoria._id} className="mb-5">
             <h2 className="text-center mb-4">{categoria.nombre}</h2>
-            <div className="row">
+            <Swiper
+              modules={[Navigation, Pagination, Autoplay]}
+              spaceBetween={25}
+              slidesPerView={1}
+              breakpoints={{
+                480: { slidesPerView: 2 },
+                768: { slidesPerView: 3 },
+                1024: { slidesPerView: 4 },
+              }}
+              navigation
+              pagination={{ clickable: true }}
+              autoplay={{ delay: 3000, disableOnInteraction: false }}
+              className="swiper-container"
+            >
               {productos
                 .filter((producto) => producto.categoria._id === categoria._id)
                 .map((producto) => (
-                  <div key={producto._id} className="col-md-4">
-                    <div className="card">
-                      <img
-                        src={producto.img || "https://via.placeholder.com/150"}
-                        className="card-img-top"
-                        alt={producto.nombre}
-                      />
-                      <div className="card-body">
-                        <h5 className="card-title">{producto.nombre}</h5>
-                        <p className="card-text">
-                          {producto.descripcion || "Descripción no disponible."}
-                        </p>
-                        <p className="card-text">
-                          <strong>Precio:</strong> ${producto.precio}
-                        </p>
-                        <button className="btn btn-primary">Comprar</button>
+                  <SwiperSlide key={producto._id}>
+                    <div className="card-wrapper">
+                      <div className="card">
+                        <img
+                          src={
+                            producto.img || "https://via.placeholder.com/150"
+                          }
+                          className="card-img-top"
+                          alt={producto.nombre}
+                        />
+                        <div className="card-body">
+                          <h5 className="card-title">{producto.nombre}</h5>
+                          <p className="card-text">
+                            {producto.descripcion ||
+                              "Descripción no disponible."}
+                          </p>
+                          <p className="card-text">
+                            <strong>${producto.precio}</strong> 
+                          </p>
+                        <button
+                          className="btn my-1"
+                          // onClick={handleComprar}
+                        >
+                          Comprar
+                        </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </SwiperSlide>
                 ))}
-            </div>
+            </Swiper>
           </div>
         ))}
       </div>

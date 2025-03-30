@@ -87,7 +87,7 @@ const LoginScreen = () => {
                 />
                 <button
                   type="button"
-                  className="btn btn-outline-secondary bg-light"
+                  className="btn btn-outline-secondary"
                   onClick={togglePasswordVisibility}
                 >
                   <i
@@ -111,7 +111,7 @@ const LoginScreen = () => {
         )}
         <button
           type="button"
-          className="btn btn-link mt-3"
+          className="btn btn-link mt-3 clickable"
           data-bs-toggle="modal"
           data-bs-target="#userRegisterModal"
         >

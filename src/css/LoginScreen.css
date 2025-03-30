@@ -1,49 +1,91 @@
 .login-container {
-    height: 100vh;
-    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-    color: white;
-  }
-  
-  .login-container h2 {
-    margin-bottom: 20px;
-    font-size: 2rem;
-    font-weight: bold;
-  }
-  
-  .login-form {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 100%;
-    max-width: 400px;
-  }
-  
-  .login-form .form-label {
-    color: #333;
-    font-weight: bold;
-  }
-  
-  .login-form .form-control {
-    border-radius: 5px;
-    padding: 10px;
-  }
-  
-  .login-form .btn {
-    width: 100%;
-    background-color: #4caf50;
-    border: none;
-  }
-  
-  .login-form .btn:hover {
-    background-color: #45a049;
-  }
-  .clickable {
-    cursor: pointer;
-    color: #0d6efd; 
-    text-decoration: none; 
-  }
-  
-  .clickable:hover {
-    color: #0b5ed7; 
-  }
-  
+  height: 100vh;
+  background: linear-gradient(135deg, #ff5733 0%, #f39c12 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.login-container h2 {
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  color: #fff;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/*formulario login*/
+.login-form {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.login-form .form-label {
+  color: #333;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.login-form .form-control {
+  border-radius: 5px;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s;
+}
+
+.login-form .form-control:focus {
+  border-color: #f39c12;
+  outline: none;
+}
+
+/* Estilo para el botón de login */
+.login-form .btn {
+  width: 100%;
+  background-color: #ff5733;
+  color: black;
+  border: none;
+  padding: 15px;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.register-form .btn {
+  background-color: #ff5733;
+  color: black;
+}
+
+.login-form .btn:hover {
+  background-color: #e64a19;
+}
+
+.clickable {
+  cursor: pointer;
+  color: #000000;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.clickable:hover {
+  color: #0b5ed7;
+  text-decoration: none;
+}
+
+/*modal registro*/
+
+.modal-content {
+  background-image: url("https://img.freepik.com/free-vector/food-doodle-frame-beige-background-vector_53876-167977.jpg?semt=ais_hybrid");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
