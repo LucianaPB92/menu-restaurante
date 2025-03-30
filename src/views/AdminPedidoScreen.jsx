@@ -43,7 +43,7 @@ const Pedidos = () => {
   };
   const handleChangeEstado = async (id, estado) => {
     try {
-      const response = await actualizarPedido(id, { estado: !estado }); // Cambia el estado del pedido (true/false)
+      const response = await actualizarPedido(id, { estado: !estado });
       if (response?.pedido) {
         setPedidos(pedidos.map((pedido) =>
           pedido._id === id ? { ...pedido, estado: response.pedido.estado } : pedido
@@ -83,7 +83,7 @@ const Pedidos = () => {
                   <td>{new Date(pedido.fecha).toLocaleDateString()}</td>
                   <td><button
                       className={`btn btn-sm ${pedido.estado ? "btn-success":"btn-danger"}`}
-                      onClick={() => handleChangeEstado(pedido._id, pedido.estado)} // Cambiar el estado del pedido
+                      onClick={() => handleChangeEstado(pedido._id, pedido.estado)}
                     >
                       {pedido.estado ? "Marcar como Finalizado" : "Marcar como Pendiente"}
                     </button></td>
