@@ -3,7 +3,7 @@ import RoutesTwo from "./routes/RoutesTwo";
 import LoginScreen from "./views/LoginScreen";
 import NavBarApp from "./components/NavbarApp";
 import PedidoDetalle from "./views/DetallePedidoScreen";
-import CarritoScreen from "./views/CarritoScreen";
+
 import { useState } from "react";
 
 function App() {
@@ -24,14 +24,7 @@ function App() {
             path="/login"
             element={<LoginScreen />}
           />
-          <Route
-            path="/pedidos"
-            element={<CarritoScreen carrito={carrito} setCarrito={setCarrito} />}
-          />
-          <Route
-            path="/pedidos/:id"
-            element={<PedidoDetalle />}
-          />
+       
         </Routes>
       </div>
     </BrowserRouter>
