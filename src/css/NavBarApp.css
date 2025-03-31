@@ -71,7 +71,7 @@
     position: absolute;
     top: 0;
     right: 0;
-    width: 50vw;
+    width: 40vw;
     background: linear-gradient(135deg, #f39c12 0%, #ff5733 100%);
     display: flex;
     flex-direction: column;
@@ -82,8 +82,10 @@
   }
 
   .navbar-nav .nav-item {
-    display: block;
+    display: flex;
     text-align: center;
+    align-items: center;
+    justify-content: center;
   }
 
   .navbar-brand {
@@ -105,6 +107,38 @@
     z-index: 2500;
   }
 }
+
+.navbar-nav .dropdown-menu {
+  position: absolute;
+  width: 100%;
+  background: linear-gradient(135deg, #f39c12 0%, #ff5733 100%);
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.navbar-nav .dropdown {
+  position: relative;
+  z-index: 1060; 
+}
+.navbar-nav .dropdown-item {
+  color: white;
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 10px;
+  text-transform: uppercase;
+}
+
+.navbar-nav .dropdown-item:hover {
+  background-color: #ff5733;
+  color: #fff;
+}
+.navbar-nav .nav-item.boton-login {
+  position: relative;
+  z-index: 100;
+}
+
 
 @media (max-width: 550px) {
   .navbar {
@@ -174,7 +208,7 @@
 
 .navbar-nav .nav-link {
   font-family: "Poppins", sans-serif;
-  font-size: 1.1rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: white;
   text-transform: uppercase;
