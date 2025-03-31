@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { obtenerCategorias } from "../helpers/apiCategorias";
 import { obtenerProductos } from "../helpers/apiProductos";
+import { getUsuario } from "../helpers/apiUsuarios";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
@@ -14,6 +15,20 @@ import bannerMobile from "../assets/banner-mobile.jpg";
 const HomeScreen = () => {
   const [categorias, setCategorias] = useState([]);
   const [productos, setProductos] = useState([]);
+  const [usuario, setUsuario] = useState(null);
+
+  const verificarSesion = () => {
+    const uid = localStorage.getItem("uid");
+    const token = localStorage.getItem("token");
+
+    if (uid && token) {
+      getUsuario(uid)
+        .then(setUsuario)
+        .catch(() => setUsuario(null));
+    } else {
+      setUsuario(null);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,9 +36,8 @@ const HomeScreen = () => {
         const categoriasData = await obtenerCategorias();
         setCategorias(categoriasData);
 
-        const { productos, total } = await obtenerProductos({ estado: true });
+        const { productos } = await obtenerProductos({ estado: true });
         setProductos(productos);
-        console.log(`Total productos: ${total}`);
       } catch (error) {
         console.error("Error al obtener los datos:", error);
         setProductos([]);
@@ -31,11 +45,19 @@ const HomeScreen = () => {
     };
 
     fetchData();
-  }, []);
+    verificarSesion();
 
+    const interval = setInterval(verificarSesion, 1000);
+    return () => clearInterval(interval);
+  }, []);
+  const handleComprar = () => {
+    if (!usuario) {
+      alert("Debe iniciar sesión para realizar un pedido.");
+      return;
+    }
+  };
   return (
     <div>
-      {/* Banner principal */}
       <div className="banner-container">
         <img
           src={bannerDesktop}
@@ -46,10 +68,7 @@ const HomeScreen = () => {
         />
       </div>
 
-
-     {/* Secciones por categorías */}
-     
-     <div className="container px-0">
+      <div className="container px-0">
         {categorias.map((categoria) => (
           <div key={categoria._id} className="mb-5">
             <h2 className="text-center mb-4">{categoria.nombre}</h2>
@@ -87,14 +106,11 @@ const HomeScreen = () => {
                               "Descripción no disponible."}
                           </p>
                           <p className="card-text">
-                            <strong>${producto.precio}</strong> 
+                            <strong>${producto.precio}</strong>
                           </p>
-                        <button
-                          className="btn my-1"
-                          // onClick={handleComprar}
-                        >
-                          Comprar
-                        </button>
+                          <button className="btn my-1" onClick={handleComprar}>
+                            Comprar
+                          </button>
                         </div>
                       </div>
                     </div>
