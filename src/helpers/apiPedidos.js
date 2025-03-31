@@ -43,18 +43,25 @@ const crearPedido = async (datos) => {
   try {
     const resp = await fetch(url, {
       method: "POST",
-      body: JSON.stringify(datos),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-        "x-token": getToken(),
-      },
+      body: JSON.stringify(datos),  
+        "Content-type": "application/json; charset=UTF-8",  
+        "x-token": getToken(), 
     });
-    if (!resp.ok) throw new Error("Error al crear el pedido");
+
+    if (!resp.ok) throw new Error(`Error al crear el pedido: ${resp.statusText}`);
+
+   
     const data = await resp.json();
-    return data;
+    
+    
+    if (data.msg && data.pedido) {
+      return data;
+    } else {
+      throw new Error("Respuesta del servidor inesperada");
+    }
   } catch (error) {
     console.error("Error al crear el pedido", error);
-    return null;
+    return null;  
   }
 };
 const actualizarPedido = async (id, datos) => {
