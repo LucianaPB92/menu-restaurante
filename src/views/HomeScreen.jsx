@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { obtenerCategorias } from "../helpers/apiCategorias";
 import { obtenerProductos } from "../helpers/apiProductos";
+import { useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
@@ -11,9 +12,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import bannerDesktop from "../assets/banner-desktop.jpg";
 import bannerMobile from "../assets/banner-mobile.jpg";
 
-const HomeScreen = () => {
+const HomeScreen = ({ carrito, setCarrito }) => {
   const [categorias, setCategorias] = useState([]);
   const [productos, setProductos] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,6 +35,11 @@ const HomeScreen = () => {
     fetchData();
   }, []);
 
+  // Función para agregar productos al carrito
+  const agregarAlCarrito = (producto) => {
+    setCarrito((prevCarrito) => [...prevCarrito, producto]);
+  };
+
   return (
     <div>
       {/* Banner principal */}
@@ -46,10 +53,8 @@ const HomeScreen = () => {
         />
       </div>
 
-
-     {/* Secciones por categorías */}
-     
-     <div className="container px-0">
+      {/* Secciones por categorías */}
+      <div className="container px-0">
         {categorias.map((categoria) => (
           <div key={categoria._id} className="mb-5">
             <h2 className="text-center mb-4">{categoria.nombre}</h2>
@@ -87,14 +92,14 @@ const HomeScreen = () => {
                               "Descripción no disponible."}
                           </p>
                           <p className="card-text">
-                            <strong>${producto.precio}</strong> 
+                            <strong>${producto.precio}</strong>
                           </p>
-                        <button
-                          className="btn my-1"
-                          // onClick={handleComprar}
-                        >
-                          Comprar
-                        </button>
+                          <button
+                            className="btn my-1"
+                            onClick={() => agregarAlCarrito(producto)} // Agregar al carrito
+                          >
+                            Agregar al Carrito
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -103,6 +108,25 @@ const HomeScreen = () => {
             </Swiper>
           </div>
         ))}
+      </div>
+
+      <div className="text-center mt-1 mb-2 ">
+        <button
+          className="btn btn-success my-1 position-fixed"
+          style={{
+            bottom: "50px",
+            right: "30px",
+            zIndex: 999,
+            borderRadius: "20%",
+            padding: "10px", // Ajusta el tamaño del botón
+            opacity: 0.9
+          }}
+          onClick={() => navigate("/pedidos")}
+        >
+          <i className="bi bi-cart" style={{ fontSize: "20px" }}></i>{" "}
+          
+          <span className="ms-1">{carrito.length}</span>
+        </button>
       </div>
     </div>
   );
