@@ -54,11 +54,7 @@ const NavBarApp = () => {
     <nav className="navbar navbar-expand-lg bg-body-secondary fixed-top">
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">
-          <img
-            src={logoMobile}
-            alt="Logo"
-            className="logo-mobile d-block"
-          />
+          <img src={logoMobile} alt="Logo" className="logo-mobile d-block" />
         </Link>
         <button
           className="navbar-toggler"
@@ -74,16 +70,35 @@ const NavBarApp = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <NavLink className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`} to="/" end>
+              <NavLink
+                className={({ isActive }) =>
+                  `nav-link ${isActive ? "active" : ""}`
+                }
+                to="/"
+                end
+              >
                 Inicio
               </NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`} to="/pedidos">
-                Pedidos
-              </NavLink>
-            </li>
-            {(userRole === "ADMIN_ROLE" || userRole === "MOD_ROLE" || userRole === "VENTAS_ROLE") && (
+
+            {( userRole=== "ADMIN_ROLE" ||
+              userRole === "MOD_ROLE" ||
+              userRole === "VENTAS_ROLE"||
+              userRole === "USER_ROLE") && (
+              <li className="nav-item">
+                <NavLink
+                  className={({ isActive }) =>
+                    `nav-link ${isActive ? "active" : ""}`
+                  }
+                  to="/pedidos"
+                >
+                  Pedidos
+                </NavLink>
+              </li>
+            )}
+            {(userRole === "ADMIN_ROLE" ||
+              userRole === "MOD_ROLE" ||
+              userRole === "VENTAS_ROLE") && (
               <li className="nav-item dropdown">
                 <button
                   className="nav-link dropdown-toggle btn btn-link"
@@ -116,11 +131,19 @@ const NavBarApp = () => {
             )}
             <li className="nav-item boton-login">
               {token ? (
-                <button className="nav-link btn btn-link" onClick={handleLogout}>
+                <button
+                  className="nav-link btn btn-link"
+                  onClick={handleLogout}
+                >
                   Cerrar sesión
                 </button>
               ) : (
-                <NavLink className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`} to="/login">
+                <NavLink
+                  className={({ isActive }) =>
+                    `nav-link ${isActive ? "active" : ""}`
+                  }
+                  to="/login"
+                >
                   Login
                 </NavLink>
               )}
