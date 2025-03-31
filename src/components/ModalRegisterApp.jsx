@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { postUsuario } from "../helpers/apiUsuarios";
-
-const RegisterModal = ({ id = "registerModal", defaultRole = "USER_ROLE" }) => {
+import "../css/LoginScreen.css"
+const RegisterModal = ({  id = "registerModal", defaultRole = "USER_ROLE", onUserAdded  }) => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
@@ -41,6 +41,9 @@ const RegisterModal = ({ id = "registerModal", defaultRole = "USER_ROLE" }) => {
         setTimeout(() => {
           closeModal();
         }, 2000);
+        if (onUserAdded) {
+          onUserAdded();
+        }
       }
     } catch (error) {
       console.error("Error al registrar usuario:", error.message);
@@ -110,7 +113,7 @@ const RegisterModal = ({ id = "registerModal", defaultRole = "USER_ROLE" }) => {
             ></button>
           </div>
           <div className="modal-body">
-            <form onSubmit={handleSubmit(registerUser)}>
+            <form className="register-form" onSubmit={handleSubmit(registerUser)}>
               <div className="mb-3">
                 <label htmlFor="regNombre" className="form-label">
                   Nombre
@@ -206,7 +209,7 @@ const RegisterModal = ({ id = "registerModal", defaultRole = "USER_ROLE" }) => {
                   {successMessage}
                 </div>
               )}
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" className="btn btn-warning">
                 Registrar
               </button>
             </form>

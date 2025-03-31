@@ -1,11 +1,41 @@
 import React, { useEffect, useState } from "react";
 import { obtenerCategorias } from "../helpers/apiCategorias";
 import { obtenerProductos } from "../helpers/apiProductos";
-import "../css/HomeScreen.css";
 
-const HomeScreen = () => {
+import { useNavigate } from "react-router-dom";
+
+import { getUsuario } from "../helpers/apiUsuarios";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "../css/HomeScreen.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import bannerDesktop from "../assets/banner-desktop.jpg";
+import bannerMobile from "../assets/banner-mobile.jpg";
+
+const HomeScreen = ({ carrito, setCarrito }) => {
   const [categorias, setCategorias] = useState([]);
   const [productos, setProductos] = useState([]);
+
+  const navigate = useNavigate();
+
+  const [usuario, setUsuario] = useState(null);
+
+  const verificarSesion = () => {
+    const uid = JSON.parse(localStorage.getItem("uid"));
+    const token = localStorage.getItem("token");
+
+    if (uid && token) {
+      getUsuario(uid)
+        .then(setUsuario)
+        .catch(() => setUsuario(null));
+    } else {
+      setUsuario(null);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -13,9 +43,8 @@ const HomeScreen = () => {
         const categoriasData = await obtenerCategorias();
         setCategorias(categoriasData);
 
-        const { productos, total } = await obtenerProductos({ estado: true });
+        const { productos } = await obtenerProductos({ estado: true });
         setProductos(productos);
-        console.log(`Total productos: ${total}`);
       } catch (error) {
         console.error("Error al obtener los datos:", error);
         setProductos([]);
@@ -23,49 +52,123 @@ const HomeScreen = () => {
     };
 
     fetchData();
+    verificarSesion();
+
+    const interval = setInterval(verificarSesion, 1000);
+    return () => clearInterval(interval);
   }, []);
+  const handleComprar = () => {
+    if (!usuario) {
+      alert("Debe iniciar sesión para realizar un pedido.");
+      navigate("/login");
+      return;
+    }
+  };
+  const agregarAlCarrito = (producto) => {
+    setCarrito((prevCarrito) => [...prevCarrito, producto]);
+  };
 
   return (
     <div>
-      <div className="home-container d-flex flex-column justify-content-center align-items-center text-center">
-        <h1>Bienvenidos a nuestra tienda</h1>
+      <div className="banner-container">
         <img
-          src="https://www.vitalbodyplus.de/cdn/shop/articles/ungesundes-fast-food-burger-und-pommes-150946.jpg?v=1702709841"
-          alt="Imagen principal"
-          className="img-fluid mb-4"
+          src={bannerDesktop}
+          srcSet={`${bannerMobile} 600w, ${bannerDesktop} 1200w`}
+          sizes="(max-width: 768px) 600px, 1200px"
+          alt="Banner principal"
+          className="banner-img"
         />
       </div>
-      <div className="container mt-3">
+
+      <div className="container px-0">
         {categorias.map((categoria) => (
           <div key={categoria._id} className="mb-5">
             <h2 className="text-center mb-4">{categoria.nombre}</h2>
-            <div className="row">
+            <Swiper
+              modules={[Navigation, Pagination, Autoplay]}
+              spaceBetween={25}
+              slidesPerView={1}
+              breakpoints={{
+                480: { slidesPerView: 2 },
+                768: { slidesPerView: 3 },
+                1024: { slidesPerView: 4 },
+              }}
+              navigation
+              pagination={{ clickable: true }}
+              autoplay={{ delay: 3000, disableOnInteraction: false }}
+              className="swiper-container"
+            >
               {productos
                 .filter((producto) => producto.categoria._id === categoria._id)
                 .map((producto) => (
-                  <div key={producto._id} className="col-md-4">
-                    <div className="card">
-                      <img
-                        src={producto.img || "https://via.placeholder.com/150"}
-                        className="card-img-top"
-                        alt={producto.nombre}
-                      />
-                      <div className="card-body">
-                        <h5 className="card-title">{producto.nombre}</h5>
-                        <p className="card-text">
-                          {producto.descripcion || "Descripción no disponible."}
-                        </p>
-                        <p className="card-text">
-                          <strong>Precio:</strong> ${producto.precio}
-                        </p>
-                        <button className="btn btn-primary">Comprar</button>
+                  <SwiperSlide key={producto._id}>
+                    <div className="card-wrapper">
+                      <div className="card">
+                        <img
+                          src={
+                            producto.img || "https://via.placeholder.com/150"
+                          }
+                          className="card-img-top"
+                          alt={producto.nombre}
+                        />
+                        <div className="card-body">
+                          <h5 className="card-title">{producto.nombre}</h5>
+                          <p className="card-text">
+                            {producto.descripcion ||
+                              "Descripción no disponible."}
+                          </p>
+                          <p className="card-text">
+                            <strong>${producto.precio}</strong>
+                          </p>
+                          <button
+                            className="btn my-1"
+                            onClick={() => {
+                              if (!usuario) {
+                                alert(
+                                  "Debe iniciar sesión para agregar productos al carrito."
+                                );
+                                navigate("/login");
+                                return;
+                              }
+                              agregarAlCarrito(producto);
+                            }}
+                          >
+                            Agregar al carrito
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </SwiperSlide>
                 ))}
-            </div>
+            </Swiper>
           </div>
         ))}
+      </div>
+
+      <div className="text-center mt-1 mb-2 ">
+        <button
+          type="button"
+          className="btn btn-success my-1 position-fixed"
+          style={{
+            bottom: "50px",
+            right: "30px",
+            zIndex: 999,
+            borderRadius: "20%",
+            padding: "10px",
+            opacity: 0.9,
+          }}
+          onClick={() => {
+            if (!usuario) {
+              alert("Debe iniciar sesión para agregar productos al carrito.");
+              navigate("/login");
+              return;
+            }
+            navigate("/pedidos");
+          }}
+        >
+          <i className="bi bi-cart" style={{ fontSize: "20px" }}></i>{" "}
+          <span className="ms-1">{carrito.length}</span>
+        </button>
       </div>
     </div>
   );
