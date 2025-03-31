@@ -118,7 +118,7 @@ const HomeScreen = ({ carrito, setCarrito }) => {
             right: "30px",
             zIndex: 999,
             borderRadius: "20%",
-            padding: "10px", // Ajusta el tamaño del botón
+            padding: "10px", 
             opacity: 0.9
           }}
           onClick={() => navigate("/pedidos")}

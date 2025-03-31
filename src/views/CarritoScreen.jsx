@@ -6,7 +6,6 @@ const CarritoScreen = ({ carrito, setCarrito }) => {
   const [mensaje, setMensaje] = useState(""); 
 
   const handleEliminarDelCarrito = (productoId, index) => {
-    // Eliminar solo el producto específico usando tanto el ID del producto como el índice
     setCarrito(carrito.filter((producto, i) => !(producto._id === productoId && i === index)));
   };
 
@@ -58,14 +57,14 @@ const CarritoScreen = ({ carrito, setCarrito }) => {
         <div>
           {carrito.map((producto, index) => (
             <div
-              key={`${producto._id}-${index}`} // Clave única utilizando el ID y el índice
+              key={`${producto._id}-${index}`} 
               className="d-flex justify-content-between align-items-center mb-3 p-3 border rounded"
             >
               <div className="d-flex flex-column flex-sm-row w-100 centrar-boton">
                 <p className="mb-1 mb-sm-0 w-75 centrar-boton mb-2">{producto.nombre} - ${producto.precio}</p>
                 <button
                   className="btn btn-danger"
-                  onClick={() => handleEliminarDelCarrito(producto._id, index)} // Pasamos tanto el ID como el índice
+                  onClick={() => handleEliminarDelCarrito(producto._id, index)} 
                 >
                   Eliminar
                 </button>
