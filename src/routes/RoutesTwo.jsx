@@ -1,16 +1,20 @@
-import React from 'react'
+import React from "react";
 import { Route, Routes } from "react-router-dom";
 import ProtectedRoutes from "./ProtectedRoutes";
-import HomeScreen from '../views/HomeScreen'
-import AdminUserScreen from '../views/AdminUserScreen.jsx';
-import AdminProductoScreen from '../views/AdminProductoScreen.jsx';
-import AdminPedidoScreen from '../views/AdminPedidoScreen.jsx';
-const RoutesTwo = () => {
+import HomeScreen from "../views/HomeScreen";
+import AdminUserScreen from "../views/AdminUserScreen.jsx";
+import AdminProductoScreen from "../views/AdminProductoScreen.jsx";
+import AdminPedidoScreen from "../views/AdminPedidoScreen.jsx";
+
+const RoutesTwo = ({ carrito, setCarrito }) => {
   return (
     <div>
-        <Routes>
-          <Route path="/" element={<HomeScreen/>}/>
-          <Route
+      <Routes>
+        <Route
+          path="/"
+          element={<HomeScreen carrito={carrito} setCarrito={setCarrito} />}
+        />
+        <Route
           path="/admin/usuarios"
           element={
             <ProtectedRoutes rolesPermitidos={["ADMIN_ROLE"]}>
@@ -26,7 +30,7 @@ const RoutesTwo = () => {
             </ProtectedRoutes>
           }
         />
-         <Route
+        <Route
           path="/admin/pedidos"
           element={
             <ProtectedRoutes rolesPermitidos={["ADMIN_ROLE", "VENTAS_ROLE", "MOD_ROLE"]}>
@@ -34,10 +38,9 @@ const RoutesTwo = () => {
             </ProtectedRoutes>
           }
         />
-        </Routes>
-        
+      </Routes>
     </div>
-  )
-}
+  );
+};
 
-export default RoutesTwo
+export default RoutesTwo;
