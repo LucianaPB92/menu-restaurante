@@ -33,3 +33,7 @@ npm run dev
 📧 Credenciales de Prueba
 Administrador: lucianabarrionuevo21@gmail.com / 2405365Awr$%
 Usuario Común: lucianabarrionuevo88@gmail.com / 2405365Awr$%
+
+🌍 Despliegue
+
+El frontend está desplegado en https://menu-restaurante-rl4yceaxo-lucianapb92s-projects.vercel.app/
