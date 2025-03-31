@@ -1,0 +1,114 @@
+.container {
+  margin-top: 15%;
+}
+.admin-container {
+  margin-top: 8%;
+}
+
+
+.table-responsive {
+  overflow-x: auto;
+  width: 100%;
+}
+.table th,
+.table td {
+  border-bottom: none;
+}
+
+.email-col {
+  max-width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Centrar el botón dentro de su celda */
+td:last-child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  min-height: 50px;
+}
+@media (max-width: 768px) {
+  .container {
+    margin-top: 10%;
+  }
+  .email-col::before {
+    content: attr(data-email);
+    display: inline-block;
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .rol-col {
+    max-width: 9ch;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+ 
+  .btn-sm {
+    padding: 2px 6px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 500px) {
+  .col-nombre {
+    font-size: 14px;
+    word-wrap: break-word;
+    max-width: 110px;
+  }
+
+  .col-precio {
+    display: none;
+  }
+  .col-categoria {
+    max-width: 80px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1rem;
+  }
+  .col-disponible {
+    max-width: 50px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1rem;
+  }
+  .col-disponible::after {
+    content: "Disp";
+  }
+}
+
+@media (max-width: 425px) {
+  .email-col {
+    max-width: 80px;
+    font-size: 14px;
+  }
+
+  .rol-col {
+    max-width: 50px;
+    font-size: 14px;
+  }
+
+  
+  .btn-sm {
+    padding: 2px 4px;
+    font-size: 10px;
+    height: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  
+  td {
+    padding: 5px;
+    justify-content: center;
+  }
+}
