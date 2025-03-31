@@ -1,4 +1,4 @@
-const url = "https://webserver-qcd7.onrender.com/api/pedidos";
+const url = "https://webserver-mfl9.onrender.com/api/pedidos";
 const getToken = () => JSON.parse(localStorage.getItem("token"));
 const getPedidos = async () => {
   try {
