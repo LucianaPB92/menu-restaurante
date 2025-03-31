@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getPedidoId } from "../helpers/apiPedidos";
+import "../css/AdminPedidoScreen.css"
 
 const PedidoDetalle = () => {
   const { id } = useParams();
@@ -22,7 +23,7 @@ const PedidoDetalle = () => {
     cargarPedido();
   }, [id]);
 
-  // Función para volver a la lista de pedidos
+  
   const handleVolver = () => {
     navigate("/admin/pedidos");
   };
@@ -35,10 +36,10 @@ const PedidoDetalle = () => {
     return <p className="text-center">Cargando pedido...</p>;
   }
 
-  // Evitar error si 'usuario' o 'nombre' no están disponibles
+
   const clienteNombre = pedido.usuario ? pedido.usuario.nombre : "Cliente no encontrado";
   
-  // Verifica que la fecha sea válida
+
   const fecha = new Date(pedido.fecha);
   const fechaFormateada = fecha instanceof Date && !isNaN(fecha) ? fecha.toLocaleDateString() : "Fecha inválida";
 
@@ -47,7 +48,7 @@ const PedidoDetalle = () => {
   }, 0);
 
   return (
-    <div className="container mt-4">
+    <div className="container margenContainer">
       <h2>Detalles del Pedido</h2>
       <p><strong>ID:</strong> {pedido._id}</p>
       <p><strong>Cliente:</strong> {clienteNombre}</p> {/* Verificación antes de mostrar nombre */}

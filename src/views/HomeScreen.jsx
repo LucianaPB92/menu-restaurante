@@ -25,7 +25,7 @@ const HomeScreen = ({ carrito, setCarrito }) => {
   const [usuario, setUsuario] = useState(null);
 
   const verificarSesion = () => {
-    const uid = localStorage.getItem("uid");
+    const uid = JSON.parse(localStorage.getItem("uid"));
     const token = localStorage.getItem("token");
 
     if (uid && token) {
@@ -54,20 +54,18 @@ const HomeScreen = ({ carrito, setCarrito }) => {
     fetchData();
     verificarSesion();
 
-
-  // Función para agregar productos al carrito
-  const agregarAlCarrito = (producto) => {
-    setCarrito((prevCarrito) => [...prevCarrito, producto]);
-  };
-
     const interval = setInterval(verificarSesion, 1000);
     return () => clearInterval(interval);
   }, []);
   const handleComprar = () => {
     if (!usuario) {
       alert("Debe iniciar sesión para realizar un pedido.");
+      navigate("/login");
       return;
     }
+  };
+  const agregarAlCarrito = (producto) => {
+    setCarrito((prevCarrito) => [...prevCarrito, producto]);
   };
 
   return (
@@ -122,12 +120,21 @@ const HomeScreen = ({ carrito, setCarrito }) => {
                           <p className="card-text">
                             <strong>${producto.precio}</strong>
                           </p>
-                          <button className="btn my-1" onClick={() => { 
-                           agregarAlCarrito(producto); 
-                           handleComprar();
-                           }}>
-                          Agregar al carrito
-                          </button>                          
+                          <button
+                            className="btn my-1"
+                            onClick={() => {
+                              if (!usuario) {
+                                alert(
+                                  "Debe iniciar sesión para agregar productos al carrito."
+                                );
+                                navigate("/login");
+                                return;
+                              }
+                              agregarAlCarrito(producto);
+                            }}
+                          >
+                            Agregar al carrito
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -140,19 +147,26 @@ const HomeScreen = ({ carrito, setCarrito }) => {
 
       <div className="text-center mt-1 mb-2 ">
         <button
+          type="button"
           className="btn btn-success my-1 position-fixed"
           style={{
             bottom: "50px",
             right: "30px",
             zIndex: 999,
             borderRadius: "20%",
-            padding: "10px", 
-            opacity: 0.9
+            padding: "10px",
+            opacity: 0.9,
           }}
-          onClick={() => navigate("/pedidos")}
+          onClick={() => {
+            if (!usuario) {
+              alert("Debe iniciar sesión para agregar productos al carrito.");
+              navigate("/login");
+              return;
+            }
+            navigate("/pedidos");
+          }}
         >
           <i className="bi bi-cart" style={{ fontSize: "20px" }}></i>{" "}
-          
           <span className="ms-1">{carrito.length}</span>
         </button>
       </div>

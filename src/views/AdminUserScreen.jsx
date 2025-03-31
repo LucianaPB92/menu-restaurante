@@ -133,7 +133,7 @@ const AdminUserScreen = () => {
           </button>
 
           {/* Modal para registrar usuarios como ADMIN_ROLE */}
-          <RegisterModal id="modRegisterModal" defaultRole="MOD_ROLE" />
+          <RegisterModal id="modRegisterModal" defaultRole="MOD_ROLE" onUserAdded={obtenerUsuarios}/>
 
           {/* Buscador y filtro */}
           <div className="row my-2">
