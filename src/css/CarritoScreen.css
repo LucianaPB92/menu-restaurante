@@ -1,0 +1,8 @@
+@media (max-width: 576px) {
+    .centrar-boton {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 80%; 
+    }
+  }
