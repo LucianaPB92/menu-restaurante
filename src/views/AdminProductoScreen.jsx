@@ -9,7 +9,7 @@ import {
 } from "../helpers/apiProductos.js";
 import FormularioProducto from "../components/InputFormApp.jsx";
 import Pagination from "../components/PaginationApp.jsx";
-
+import "../css/AdminScreen.css";
 const AdminProductoScreen = () => {
   const [productos, setProductos] = useState([]);
   const [mensaje, setMensaje] = useState("");
@@ -231,7 +231,7 @@ const AdminProductoScreen = () => {
       });
   };
   return (
-    <div className="p-4 border rounded shadow-sm bg-white">
+    <div className="admin-container px-4  shadow-sm bg-white">
       <h3>Agregar Producto</h3>
       <form onSubmit={handleSubmitAgregar(handleFormSubmit)}>
         <FormularioProducto
@@ -263,77 +263,82 @@ const AdminProductoScreen = () => {
       </div>
 
       <h3>Lista de Productos</h3>
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Precio</th>
-            <th>Categoría</th>
-            <th></th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {productosPaginados.length > 0 ? (
-            productosPaginados.map((producto) => (
-              <tr key={producto._id}>
-                <td>{producto.nombre}</td>
-                <td>${producto.precio}</td>
-                <td>{producto.categoria?.nombre || "Sin categoría"}</td>
-                <td>{producto.estado ? "Disponible" : "No disponible"}</td>
-                <td>
-                  {producto.estado ? (
-                    <>
-                      <button
-                        type="button"
-                        className="btn btn-primary btn-sm mx-3"
-                        data-bs-toggle="modal"
-                        data-bs-target="#modalEditar"
-                        onClick={() => cargarProductoParaEditar(producto)}
-                      >
-                        Editar
-                      </button>
+      <div className="table-responsive">
+        <table className="table mt-4">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th className="col-precio">Precio</th>
+              <th className="col-categoria">Categoría</th>
+              <th className="col-disponible"></th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {productosPaginados.length > 0 ? (
+              productosPaginados.map((producto) => (
+                <tr key={producto._id}>
+                  <td className="col-nombre">{producto.nombre}</td>
+                  <td className="col-precio">${producto.precio}</td>
+                  <td className="col-categoria">
+                    {producto.categoria?.nombre || "Sin categoría"}
+                  </td>
+                  <td className="col-disponible">
+                    {producto.estado ? "Disponible" : "No disponible"}
+                  </td>
+                  <td>
+                    {producto.estado ? (
+                      <>
+                        <button
+                          type="button"
+                          className="btn btn-primary btn-sm mx-3"
+                          data-bs-toggle="modal"
+                          data-bs-target="#modalEditar"
+                          onClick={() => cargarProductoParaEditar(producto)}
+                        >
+                          Editar
+                        </button>
 
-                      <button
-                        className="btn btn-danger btn-sm"
-                        onClick={() => handleBorrar(producto._id)}
-                      >
-                        Borrar
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      <button className="btn btn-secondary" disabled>
-                        Editar
-                      </button>
-                      <button
-                        className="btn btn-success"
-                        onClick={() => handleReactivarProducto(producto._id)}
-                      >
-                        Reactivar
-                      </button>
-                    </>
-                  )}
+                        <button
+                          className="btn btn-danger btn-sm"
+                          onClick={() => handleBorrar(producto._id)}
+                        >
+                          Borrar
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <button className="btn btn-secondary" disabled>
+                          Editar
+                        </button>
+                        <button
+                          className="btn btn-success"
+                          onClick={() => handleReactivarProducto(producto._id)}
+                        >
+                          Reactivar
+                        </button>
+                      </>
+                    )}
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="4" className="text-center">
+                  <strong>No se encontró el producto solicitado</strong>
                 </td>
               </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="4" className="text-center">
-                <strong>No se encontró el producto solicitado</strong>
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-
-      <Pagination
-        items={productosFiltrados}
-        itemsPerPage={productosPorPagina}
-        currentPage={paginaActual}
-        setCurrentPage={setPaginaActual}
-        setPaginatedItems={actualizarProductosPaginados}
-      />
+            )}
+          </tbody>
+        </table>
+        <Pagination
+          items={productosFiltrados}
+          itemsPerPage={productosPorPagina}
+          currentPage={paginaActual}
+          setCurrentPage={setPaginaActual}
+          setPaginatedItems={actualizarProductosPaginados}
+        />
+      </div>
 
       {/* Modal de edición */}
       <div

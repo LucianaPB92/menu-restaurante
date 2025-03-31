@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { obtenerCategorias } from "../helpers/apiCategorias";
 import { obtenerProductos } from "../helpers/apiProductos";
+
 import { useNavigate } from "react-router-dom";
+
+import { getUsuario } from "../helpers/apiUsuarios";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
@@ -15,7 +19,23 @@ import bannerMobile from "../assets/banner-mobile.jpg";
 const HomeScreen = ({ carrito, setCarrito }) => {
   const [categorias, setCategorias] = useState([]);
   const [productos, setProductos] = useState([]);
+
   const navigate = useNavigate();
+
+  const [usuario, setUsuario] = useState(null);
+
+  const verificarSesion = () => {
+    const uid = localStorage.getItem("uid");
+    const token = localStorage.getItem("token");
+
+    if (uid && token) {
+      getUsuario(uid)
+        .then(setUsuario)
+        .catch(() => setUsuario(null));
+    } else {
+      setUsuario(null);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,9 +43,8 @@ const HomeScreen = ({ carrito, setCarrito }) => {
         const categoriasData = await obtenerCategorias();
         setCategorias(categoriasData);
 
-        const { productos, total } = await obtenerProductos({ estado: true });
+        const { productos } = await obtenerProductos({ estado: true });
         setProductos(productos);
-        console.log(`Total productos: ${total}`);
       } catch (error) {
         console.error("Error al obtener los datos:", error);
         setProductos([]);
@@ -33,16 +52,26 @@ const HomeScreen = ({ carrito, setCarrito }) => {
     };
 
     fetchData();
-  }, []);
+    verificarSesion();
+
 
   // Función para agregar productos al carrito
   const agregarAlCarrito = (producto) => {
     setCarrito((prevCarrito) => [...prevCarrito, producto]);
   };
 
+    const interval = setInterval(verificarSesion, 1000);
+    return () => clearInterval(interval);
+  }, []);
+  const handleComprar = () => {
+    if (!usuario) {
+      alert("Debe iniciar sesión para realizar un pedido.");
+      return;
+    }
+  };
+
   return (
     <div>
-      {/* Banner principal */}
       <div className="banner-container">
         <img
           src={bannerDesktop}
@@ -53,7 +82,6 @@ const HomeScreen = ({ carrito, setCarrito }) => {
         />
       </div>
 
-      {/* Secciones por categorías */}
       <div className="container px-0">
         {categorias.map((categoria) => (
           <div key={categoria._id} className="mb-5">
@@ -94,12 +122,12 @@ const HomeScreen = ({ carrito, setCarrito }) => {
                           <p className="card-text">
                             <strong>${producto.precio}</strong>
                           </p>
-                          <button
-                            className="btn my-1"
-                            onClick={() => agregarAlCarrito(producto)} // Agregar al carrito
-                          >
-                            Agregar al Carrito
-                          </button>
+                          <button className="btn my-1" onClick={() => { 
+                           agregarAlCarrito(producto); 
+                           handleComprar();
+                           }}>
+                          Agregar al carrito
+                          </button>                          
                         </div>
                       </div>
                     </div>

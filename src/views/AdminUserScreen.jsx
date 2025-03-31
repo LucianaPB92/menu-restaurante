@@ -8,7 +8,11 @@ import {
 } from "../helpers/apiUsuarios";
 import Pagination from "../components/PaginationApp";
 import RegisterModal from "../components/ModalRegisterApp";
+import Loader from "../components/loaderApp";
 import { useCallback } from "react";
+import "../css/AdminScreen.css"
+
+
 const AdminUserScreen = () => {
   const [user, setUser] = useState(null);
   const [usuarios, setUsuarios] = useState([]);
@@ -108,19 +112,19 @@ const AdminUserScreen = () => {
       alert("Error al reactivar el usuario: " + error.message);
     }
   };
-
+  
   return (
     <>
       {loading ? (
-        <h3>Cargando...</h3>
+        <Loader />
       ) : user?.rol === "ADMIN_ROLE" ||
         user?.rol === "MOD_ROLE" ||
         user?.rol === "VENTAS_ROLE" ? (
-        <div className="container mt-4 px-3">
+        <div className="container px-3">
           <h1>Gestión de Usuarios</h1>
           <button
             type="button"
-            className="btn btn-primary mt-3"
+            className="btn btn-primary my-3"
             data-bs-toggle="modal"
             data-bs-target="#modRegisterModal"
             disabled={user?.rol !== "ADMIN_ROLE"}
@@ -132,7 +136,7 @@ const AdminUserScreen = () => {
           <RegisterModal id="modRegisterModal" defaultRole="MOD_ROLE" />
 
           {/* Buscador y filtro */}
-          <div className="row mb-3">
+          <div className="row my-2">
             <div className="col-12 col-md-6 mb-3 mb-md-0">
               <div className="d-flex justify-content-end">
                 <input
@@ -145,6 +149,8 @@ const AdminUserScreen = () => {
               </div>
             </div>
           </div>
+          <div className="table-responsive">
+
           <table className="table mt-4">
             <thead>
               <tr>
@@ -157,20 +163,20 @@ const AdminUserScreen = () => {
               {usuariosPaginados.length > 0 ? (
                 usuariosPaginados.map((usuario) => (
                   <tr key={usuario._id}>
-                    <td>{usuario.email}</td>
-                    <td>{usuario.rol}</td>
+                    <td className="email-col">{usuario.email}</td>
+                    <td className="rol-col">{usuario.rol}</td>
                     <td>{usuario.estado ? "Activo" : "Inactivo"}</td>
                     <td>
                       {usuario.estado ? (
                         <button
-                          className="btn btn-danger"
+                          className="btn btn-danger btn-sm"
                           onClick={() => handleInactivarUsuario(usuario._id)}
                         >
                           Inactivar
                         </button>
                       ) : (
                         <button
-                          className="btn btn-secondary"
+                          className="btn btn-secondary btn-sm"
                           onClick={() => handleReactivarUsuario(usuario._id)}
                         >
                           Reactivar
@@ -195,6 +201,7 @@ const AdminUserScreen = () => {
             setCurrentPage={setPaginaActual}
             setPaginatedItems={actualizarUsuariosPaginados}
           />
+          </div>
         </div>
       ) : (
         <Navigate to="/" />
