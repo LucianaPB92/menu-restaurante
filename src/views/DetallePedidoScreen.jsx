@@ -73,7 +73,7 @@ const PedidoDetalle = () => {
       </table>
       <h4><strong>Total: ${totalPedido.toFixed(2)}</strong></h4>
       
-      <button className="btn btn-secondary" onClick={handleVolver}>Volver</button>
+      <button className=" bi bi-arrow-left btn btn-secondary" onClick={handleVolver}>Volver</button>
     </div>
   );
 };
