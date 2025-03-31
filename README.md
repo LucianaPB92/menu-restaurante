@@ -36,4 +36,4 @@ Usuario Común: lucianabarrionuevo88@gmail.com / 2405365Awr$%
 
 🌍 Despliegue
 
-El frontend está desplegado en https://menu-restaurante-rl4yceaxo-lucianapb92s-projects.vercel.app/
+El frontend está desplegado en https://menu-restaurante-eta.vercel.app/
